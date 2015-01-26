@@ -11,16 +11,18 @@
 # **************************************************************************** #
 
 NAME = ft_minishell1
-PATH_SRC = ./
+PATH_SRC = ./src/
 PATH_OBJ = ./
 PATH_INC = ./libft/includes/
 
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror
 
-HEAD = fdf.h
+HEAD = $(PATH_SRC)ft_sh1.h
 
-SRC =	main.c
+SRC =	main.c \
+		sh_loop.c \
+		sh_parse.c
 
 OBJ = $(patsubst %.c,%.o,$(addprefix $(PATH_SRC), $(SRC)))
 
@@ -29,7 +31,7 @@ all: $(NAME)
 
 $(NAME): $(OBJ) $(HEAD)
 	make -C libft/
-	$(CC) $(CFLAGS) -I $(PATH_INC) -c $(SRC)
+	$(CC) $(CFLAGS) -I $(PATH_INC) -c $(addprefix $(PATH_SRC), $(SRC))
 	$(CC) -o $(NAME) $(OBJ) -L libft/ -lft
 
 
