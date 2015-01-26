@@ -12,6 +12,11 @@
 
 #include "ft_sh1.h"
 
+void	sh_search_exec(char *path)
+{
+
+}
+
 static void	sh_fork_procees(char *path, char **av)
 {
 	pid_t	father;
@@ -26,14 +31,15 @@ static void	sh_fork_procees(char *path, char **av)
 void		sh_loop(void)
 {
 	char *line;
-	char *argv;
+	char **argv;
+	// char *path;
 
 	while (42)
 	{
 		ft_putstr("$> ");
 		ft_get_next_line(0, &line);
-		ft_putstr(line);
-		ft_putstr("\n");
-		sh_fork_procees();
+		argv = sh_parse_argv(line);
+
+		sh_fork_procees(argv[0], argv);
 	}
 }

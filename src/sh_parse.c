@@ -12,9 +12,10 @@
 
 #include "ft_sh1.h"
 
-char **sh_parse_argv(char **argv)
+char	**sh_parse_argv(char *str_argv)
 {
 	char **array_argv;
 
-	
+	array_argv = ft_strsplit(str_argv, ' ');
+	return array_argv;
 }

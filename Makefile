@@ -15,7 +15,7 @@ PATH_SRC = ./src/
 PATH_OBJ = ./
 PATH_INC = ./libft/includes/
 
-CC = gcc
+CC = cc
 CFLAGS = -Wall -Wextra -Werror
 
 HEAD = $(PATH_SRC)ft_sh1.h

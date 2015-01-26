@@ -20,5 +20,6 @@
 ** File: sh_loop.c
 */
 void	sh_loop(void);
+char	**sh_parse_argv(char *str_argv);
 
 #endif
