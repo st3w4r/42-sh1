@@ -12,11 +12,6 @@
 
 #include "ft_sh1.h"
 
-void	sh_search_exec(char *path)
-{
-
-}
-
 static void	sh_fork_procees(char *path, char **av)
 {
 	pid_t	father;
@@ -28,18 +23,28 @@ static void	sh_fork_procees(char *path, char **av)
 		execve(path, av, NULL);
 }
 
-void		sh_loop(void)
+void		sh_loop(char **env)
 {
 	char *line;
 	char **argv;
-	// char *path;
+	char *path;
+	char **array;
+	char **array_path;
 
+	path = env[0];
 	while (42)
 	{
 		ft_putstr("$> ");
 		ft_get_next_line(0, &line);
-		argv = sh_parse_argv(line);
 
+		// path = sh_get_env("PATH", env);
+		path = env[0];
+		array = ft_strsplit(path, '=');
+		array_path = sh_parse_path(array[1]);
+
+		ft_putstr(array_path[0]);
+
+		argv = sh_parse_argv(line);
 		sh_fork_procees(argv[0], argv);
 	}
 }

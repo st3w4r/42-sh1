@@ -12,11 +12,11 @@
 
 #include "ft_sh1.h"
 
-int		main(int argc, char **argv)
+int		main(int argc, char **argv, char **env)
 {
 	(void)argc;
 	(void)argv;
-	sh_loop();
+	sh_loop(env);
 
 	// nb_args = argc;
 	return (0);
