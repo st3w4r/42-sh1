@@ -75,7 +75,8 @@ SRC = 	$(PATH_SRC)ft_strlen.c \
 	  	$(PATH_SRC)ft_lstadd.c \
 	  	$(PATH_SRC)ft_lstiter.c \
 	  	$(PATH_SRC)ft_lstmap.c \
-		$(PATH_SRC)ft_get_next_line.c
+		$(PATH_SRC)ft_get_next_line.c \
+		$(PATH_SRC)ft_free_array.c
 
 OBJ = $(patsubst %.c,%.o,$(SRC))
 

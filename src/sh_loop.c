@@ -28,21 +28,20 @@ void		sh_loop(char **env)
 	char *line;
 	char **argv;
 	char *path;
-	char **array;
 	char **array_path;
 
-	path = env[0];
+	if (!(path = sh_get_env("PATH", env)))
+		ft_error_str("Error PATH is NULL");
+	ft_putstr(path);
 	while (42)
 	{
 		ft_putstr("$> ");
 		ft_get_next_line(0, &line);
 
-		// path = sh_get_env("PATH", env);
-		path = env[0];
-		array = ft_strsplit(path, '=');
-		array_path = sh_parse_path(array[1]);
+		array_path = sh_parse_path(path);
 
-		ft_putstr(array_path[0]);
+		sh_read_dir(array_path[1]);
+
 
 		argv = sh_parse_argv(line);
 		sh_fork_procees(argv[0], argv);

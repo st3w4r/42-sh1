@@ -16,6 +16,7 @@ int		main(int argc, char **argv, char **env)
 {
 	(void)argc;
 	(void)argv;
+
 	sh_loop(env);
 
 	// nb_args = argc;

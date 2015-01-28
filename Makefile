@@ -22,7 +22,9 @@ HEAD = $(PATH_SRC)ft_sh1.h
 
 SRC =	main.c \
 		sh_loop.c \
-		sh_parse.c
+		sh_parse.c \
+		sh_files.c \
+		ft_error.c
 
 OBJ = $(patsubst %.c,%.o,$(addprefix $(PATH_SRC), $(SRC)))
 

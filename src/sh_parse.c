@@ -25,31 +25,33 @@ char	**sh_parse_path(char *path)
 	return (ft_strsplit(path, ':'));
 }
 
-void	sh_search_exec(char *array_path, char *cmd)
-{
-	int i;
+// void	sh_search_exec(char *array_paths, char *cmd)
+// {
+// 	int i;
+//
+// 	i = 0;
+// 	while (array_paths[i])
+// 	{
+//
+// 	}
+// }
 
-	i = 0;
-	while (array_path[i])
-	{
-		
-	}
-}
-/*
 char	*sh_get_env(char *env_find, char **env)
 {
-	int i;
 	char **array;
+	char *ret;
 
-	i = 0;
-	while (env[i] != NULL)
+	while (*env)
 	{
-		array = ft_strsplit(env[i], '=');
-
-		if (ft_strcmp(env_find, env[i]) == 0)
-			return (env[1]);
-		++i;
+		array = ft_strsplit(*env, '=');
+		if (ft_strcmp(env_find, array[0]) == 0)
+		{
+			ret = ft_strdup(array[1]);
+			ft_free_array(&array);
+			return (ret);
+		}
+		env++;
 	}
+	ft_free_array(&array);
 	return (NULL);
 }
-*/

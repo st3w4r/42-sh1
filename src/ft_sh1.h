@@ -14,6 +14,11 @@
 # define FT_SH1_H
 # include "../libft/includes/libft.h"
 # include <unistd.h>
+# include <fcntl.h>
+# include <sys/types.h>
+# include <sys/uio.h>
+# include <unistd.h>
+# include <dirent.h>
 
 /*
 ** Name: sh_loop
@@ -28,6 +33,22 @@ void	sh_loop(char **env);
 */
 char	**sh_parse_argv(char *str_argv);
 char	**sh_parse_path(char *path);
-// char	*sh_get_env(char *env_find, char **env);
+char	*sh_get_env(char *env_find, char **env);
+
+/*
+** Name: sh_files
+** File: sh_files.c
+** Desc: Open directory en search files
+*/
+void	sh_read_dir(char *path);
+
+/*
+** Name: ft_error
+** File: ft_error.c
+** Desc: Gestion error
+*/
+void	ft_exit(void);
+void	ft_malloc_error(void);
+void	ft_error_str(char *str);
 
 #endif
