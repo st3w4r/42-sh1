@@ -40,7 +40,7 @@ void		sh_loop(char **env)
 
 		array_path = sh_parse_path(path);
 
-		sh_read_dir(array_path[1]);
+		sh_read_dir(array_path[4], line);
 
 
 		argv = sh_parse_argv(line);

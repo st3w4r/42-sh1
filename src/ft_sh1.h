@@ -17,8 +17,19 @@
 # include <fcntl.h>
 # include <sys/types.h>
 # include <sys/uio.h>
+# include <sys/stat.h>
 # include <unistd.h>
 # include <dirent.h>
+
+typedef struct stat t_stat;
+typedef unsigned int t_uint;
+
+struct s_lst
+{
+    char            *path;
+    struct dirent   *rd;
+    struct s_list   *next;
+}   t_lst;
 
 /*
 ** Name: sh_loop
@@ -40,7 +51,7 @@ char	*sh_get_env(char *env_find, char **env);
 ** File: sh_files.c
 ** Desc: Open directory en search files
 */
-void	sh_read_dir(char *path);
+void	sh_read_dir(char *path, char *search_exec);
 
 /*
 ** Name: ft_error
