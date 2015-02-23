@@ -15,7 +15,7 @@ PATH_SRC = ./src/
 PATH_OBJ = ./
 PATH_INC = ./libft/includes/
 
-CC = gcc
+CC = cc
 CFLAGS = -Wall -Wextra -Werror -I $(PATH_INC)
 LIBS = -L libft/ -lft
 

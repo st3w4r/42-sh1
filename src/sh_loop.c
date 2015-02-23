@@ -12,7 +12,7 @@
 
 #include "ft_sh1.h"
 
-static void	sh_fork_procees(char *path, char **av)
+static void	sh_fork_procees(char *path, char **av, char **env)
 {
 	pid_t	father;
 
@@ -20,8 +20,22 @@ static void	sh_fork_procees(char *path, char **av)
 	if (father > 0)
 		wait(0);
 	else if (father == 0)
-		execve(path, av, NULL);
+		execve(path, av, env);
 }
+
+static void sh_search_exec(char **array_path, char **argv, char **env)
+{
+	char *full_path;
+
+	while (*array_path)
+	{
+		full_path = sh_read_dir(*array_path, argv[0]);
+		if (full_path != NULL)
+			sh_fork_procees(full_path, argv, env);
+		array_path++;
+	}
+}
+
 
 void		sh_loop(char **env)
 {
@@ -32,18 +46,13 @@ void		sh_loop(char **env)
 
 	if (!(path = sh_get_env("PATH", env)))
 		ft_error_str("Error PATH is NULL");
-	ft_putstr(path);
+	// ft_putstr(path);
 	while (42)
 	{
 		ft_putstr("$> ");
 		ft_get_next_line(0, &line);
-
 		array_path = sh_parse_path(path);
-
-		sh_read_dir(array_path[4], line);
-
-
 		argv = sh_parse_argv(line);
-		sh_fork_procees(argv[0], argv);
+		sh_search_exec(array_path, argv, env);
 	}
 }

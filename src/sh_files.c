@@ -12,7 +12,7 @@
 
 #include "ft_sh1.h"
 
-static t_uint		sh_exist_dir_file(char *name)
+static inline t_uint	sh_exist_dir_file(char *name)
 {
 	t_stat *file_stat;
 
@@ -27,7 +27,7 @@ static t_uint		sh_exist_dir_file(char *name)
 	return (0);
 }
 
-static t_uint		sh_grant_access(char *path_exec)
+static inline t_uint	sh_grant_access(char *path_exec)
 {
 	if (sh_exist_dir_file(path_exec) == 2)
 		if (access(path_exec, X_OK) == 0)
@@ -38,39 +38,37 @@ static t_uint		sh_grant_access(char *path_exec)
 		return (-1);
 }
 
+static char			*sh_search_exec(char *path, char *file_name, char *cmd)
+{
+	char	*full_path;
+	t_uint	is_exec;
 
-void	sh_read_dir(char *path, char *search_exec)
+	full_path = ft_strjoin(ft_strjoin(path, "/"), file_name);
+	is_exec = -1;
+	is_exec = sh_grant_access(full_path);
+	if (is_exec == 0)
+		if (ft_strcmp(file_name, cmd) == 0)
+			return (full_path);
+	return (NULL);
+}
+
+char				*sh_read_dir(char *path, char *cmd)
 {
 	DIR				*dir;
 	struct dirent	*rd;
-	char 			*full_path;
-	t_uint			is_exec;
-	/*t_lst			*list;
-	t_lst 			n_elem;
-
-	list = NULL;
-	if (!(list = (t_lst*)malloc(sizeof(t_lst)))
-		ft_malloc_error();*/
+	char	*full_path;
 
 	if ((dir = opendir(path)) == NULL)
-		ft_error_str("Error Open");
+		return (NULL);
 	while ((rd = readdir(dir)))
 	{
-		// ft_putstr(rd->d_name);
-		// ft_putstr(" ");
-		full_path = ft_strjoin(ft_strjoin(path, "/"), rd->d_name);
-		// is_exec = 0;
-		is_exec = sh_grant_access(full_path);
-		if (is_exec == 0)
-		{
-			if (ft_strcmp(rd->d_name, search_exec) == 0)
-			{
-				ft_putstr("FIND");
-			}
-		}
+		full_path = sh_search_exec(path, rd->d_name, cmd);
+		if (full_path != NULL)
+			return (full_path);
 	}
 	if ((closedir(dir)) == -1)
-		ft_error_str("Error Close");
+		return (NULL);
+	return (NULL);
 }
 
 

@@ -25,17 +25,6 @@ char	**sh_parse_path(char *path)
 	return (ft_strsplit(path, ':'));
 }
 
-// void	sh_search_exec(char *array_paths, char *cmd)
-// {
-// 	int i;
-//
-// 	i = 0;
-// 	while (array_paths[i])
-// 	{
-//
-// 	}
-// }
-
 char	*sh_get_env(char *env_find, char **env)
 {
 	char **array;

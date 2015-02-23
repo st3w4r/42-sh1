@@ -22,6 +22,7 @@
 # include <dirent.h>
 
 typedef struct stat t_stat;
+typedef struct dirent t_dirent;
 typedef unsigned int t_uint;
 
 struct s_lst
@@ -51,7 +52,7 @@ char	*sh_get_env(char *env_find, char **env);
 ** File: sh_files.c
 ** Desc: Open directory en search files
 */
-void	sh_read_dir(char *path, char *search_exec);
+char	*sh_read_dir(char *path, char *cmd);
 
 /*
 ** Name: ft_error
