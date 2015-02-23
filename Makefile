@@ -15,8 +15,9 @@ PATH_SRC = ./src/
 PATH_OBJ = ./
 PATH_INC = ./libft/includes/
 
-CC = cc
-CFLAGS = -Wall -Wextra -Werror
+CC = gcc
+CFLAGS = -Wall -Wextra -Werror -I $(PATH_INC)
+LIBS = -L libft/ -lft
 
 HEAD = $(PATH_SRC)ft_sh1.h
 
@@ -26,15 +27,13 @@ SRC =	main.c \
 		sh_files.c \
 		ft_error.c
 
-OBJ = $(patsubst %.c,%.o,$(addprefix $(PATH_SRC), $(SRC)))
-
+OBJ = $(addprefix $(PATH_SRC), $(SRC:.c=.o))
 
 all: $(NAME)
 
 $(NAME): $(OBJ) $(HEAD)
 	make -C libft/
-	$(CC) $(CFLAGS) -I $(PATH_INC) -c $(addprefix $(PATH_SRC), $(SRC))
-	$(CC) -o $(NAME) $(OBJ) -L libft/ -lft
+	$(CC) $(OBJ) -o $(NAME) $(LIBS)
 
 
 .PHONY: clean fclean
