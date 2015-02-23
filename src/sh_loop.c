@@ -36,7 +36,6 @@ static void sh_search_exec(char **array_path, char **argv, char **env)
 	}
 }
 
-
 void		sh_loop(char **env)
 {
 	char *line;
@@ -46,7 +45,6 @@ void		sh_loop(char **env)
 
 	if (!(path = sh_get_env("PATH", env)))
 		ft_error_str("Error PATH is NULL");
-	// ft_putstr(path);
 	while (42)
 	{
 		ft_putstr("$> ");

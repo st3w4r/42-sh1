@@ -12,7 +12,7 @@
 
 #include "ft_sh1.h"
 
-static inline t_uint	sh_exist_dir_file(char *name)
+inline t_uint	sh_exist_dir_file(char *name)
 {
 	t_stat *file_stat;
 

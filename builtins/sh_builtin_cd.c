@@ -1,29 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_error.c                                         :+:      :+:    :+:   */
+/*   sh_builtin_cd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ybarbier <ybarbier@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ybarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/01/28 18:49:55 by ybarbier          #+#    #+#             */
-/*   Updated: 2015/01/28 18:49:56 by ybarbier         ###   ########.fr       */
+/*   Created: 2015/02/23 18:19:03 by ybarbier          #+#    #+#             */
+/*   Updated: 2015/02/23 18:23:41 by ybarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_sh1.h"
+#include "../src/ft_sh1.h"
 
-void	ft_exit(void)
+void	sh_builtin_cd(char *dir)
 {
-	exit(1);
-}
-
-void	ft_malloc_error(void)
-{
-	ft_putstr_fd("malloc error\n", 2);
-	ft_exit();
-}
-
-void	ft_error_str(char *str)
-{
-	ft_putstr_fd(str, 2);
+	if (sh_exist_dir_file(dir) == 1)
+	{
+		if (chdir(dir) != 0)
+			ft_error_str("Open erreur");
+	}
+	else
+		ft_error_str("Dossier erreur");
 }

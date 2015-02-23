@@ -52,6 +52,7 @@ char	*sh_get_env(char *env_find, char **env);
 ** File: sh_files.c
 ** Desc: Open directory en search files
 */
+t_uint	sh_exist_dir_file(char *name);
 char	*sh_read_dir(char *path, char *cmd);
 
 /*
@@ -62,5 +63,12 @@ char	*sh_read_dir(char *path, char *cmd);
 void	ft_exit(void);
 void	ft_malloc_error(void);
 void	ft_error_str(char *str);
+
+/*
+** Name: sh_builtin_cd
+** File: sh_builtin_cd.c
+** Desc: Builtin CD
+*/
+void	sh_builtin_cd(char *dir);
 
 #endif

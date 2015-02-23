@@ -12,6 +12,7 @@
 
 NAME = ft_minishell1
 PATH_SRC = ./src/
+PATH_BUILT = ./builtins/
 PATH_OBJ = ./
 PATH_INC = ./libft/includes/
 
@@ -27,13 +28,16 @@ SRC =	main.c \
 		sh_files.c \
 		ft_error.c
 
+BUILT = sh_builtin_cd.c
+
 OBJ = $(addprefix $(PATH_SRC), $(SRC:.c=.o))
+OBJ_BUILT = $(addprefix $(PATH_BUILT), $(BUILT:.c=.o))
 
 all: $(NAME)
 
-$(NAME): $(OBJ) $(HEAD)
+$(NAME): $(OBJ) $(OBJ_BUILT) $(HEAD)
 	make -C libft/
-	$(CC) $(OBJ) -o $(NAME) $(LIBS)
+	$(CC) $(OBJ) $(OBJ_BUILT) -o $(NAME) $(LIBS)
 
 
 .PHONY: clean fclean
