@@ -30,17 +30,22 @@ char	*sh_get_env(char *env_find, char **env)
 	char **array;
 	char *ret;
 
+	// array = NULL;
 	while (*env)
 	{
 		array = ft_strsplit(*env, '=');
 		if (ft_strcmp(env_find, array[0]) == 0)
 		{
 			ret = ft_strdup(array[1]);
-			ft_free_array(&array);
+			// ft_free_array(&array);
 			return (ret);
 		}
 		env++;
 	}
-	ft_free_array(&array);
+	// if (array)
+	// {
+	// 	ft_free_array(&array);
+	// 	array = NULL;
+	// }
 	return (NULL);
 }

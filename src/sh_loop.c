@@ -36,6 +36,16 @@ static void sh_search_exec(char **array_path, char **argv, char **env)
 	}
 }
 
+static int sh_search_builtins(char **argv, char **env)
+{
+	if (ft_strcmp(argv[0], "cd") == 0)
+	{
+		sh_builtin_cd(argv[1], env);
+		return (1);
+	}
+	return (0);
+}
+
 void		sh_loop(char **env)
 {
 	char *line;
@@ -44,13 +54,14 @@ void		sh_loop(char **env)
 	char **array_path;
 
 	if (!(path = sh_get_env("PATH", env)))
-		ft_error_str("Error PATH is NULL");
+		ft_error_str("Error PATH is NULL\n");
 	while (42)
 	{
 		ft_putstr("$> ");
 		ft_get_next_line(0, &line);
 		array_path = sh_parse_path(path);
 		argv = sh_parse_argv(line);
-		sh_search_exec(array_path, argv, env);
+		if (argv[0] && sh_search_builtins(argv, env) == 0)
+			sh_search_exec(array_path, argv, env);
 	}
 }

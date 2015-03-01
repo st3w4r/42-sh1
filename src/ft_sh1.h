@@ -69,6 +69,7 @@ void	ft_error_str(char *str);
 ** File: sh_builtin_cd.c
 ** Desc: Builtin CD
 */
-void	sh_builtin_cd(char *dir);
+void	sh_builtin_cd(char *dir, char **env);
+
 
 #endif
