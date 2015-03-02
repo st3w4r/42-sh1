@@ -36,7 +36,8 @@ struct s_lst
 ** Name: sh_loop
 ** File: sh_loop.c
 */
-void	sh_loop(char **env);
+void	sh_search_exec(char **array_path, char **argv, char **env);
+void	sh_loop(char **environment);
 
 /*
 ** Name: sh_parce
@@ -63,6 +64,7 @@ char	*sh_read_dir(char *path, char *cmd);
 void	ft_exit(void);
 void	ft_malloc_error(void);
 void	ft_error_str(char *str);
+void	ft_error_str_exit(char *str);
 
 /*
 ** Name: sh_builtin_cd
@@ -70,6 +72,13 @@ void	ft_error_str(char *str);
 ** Desc: Builtin CD
 */
 void	sh_builtin_cd(char *dir, char **env);
+void	sh_builtin_env(char **argv, char **env);
 
+/*
+** Name: sh_helper
+** File: sh_helper.c
+** Desc: Functions Helper
+*/
+t_uint	sh_tablen(char **tab);
 
 #endif

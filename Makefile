@@ -26,9 +26,11 @@ SRC =	main.c \
 		sh_loop.c \
 		sh_parse.c \
 		sh_files.c \
+		sh_helper.c \
 		ft_error.c
 
-BUILT = sh_builtin_cd.c
+BUILT = sh_builtin_cd.c \
+		sh_builtin_env.c
 
 OBJ = $(addprefix $(PATH_SRC), $(SRC:.c=.o))
 OBJ_BUILT = $(addprefix $(PATH_BUILT), $(BUILT:.c=.o))

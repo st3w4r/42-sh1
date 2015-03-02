@@ -23,11 +23,11 @@ static void	sh_fork_procees(char *path, char **av, char **env)
 		execve(path, av, env);
 }
 
-static void sh_search_exec(char **array_path, char **argv, char **env)
+void sh_search_exec(char **array_path, char **argv, char **env)
 {
 	char *full_path;
 
-	while (*array_path)
+	while (array_path && *array_path)
 	{
 		full_path = sh_read_dir(*array_path, argv[0]);
 		if (full_path != NULL)
@@ -38,21 +38,34 @@ static void sh_search_exec(char **array_path, char **argv, char **env)
 
 static int sh_search_builtins(char **argv, char **env)
 {
+	/*
+	if (ft_strcmp(argv[0], "cd") == 0)
+		sh_builtin_cd(argv[1], env);
+	else if (ft_strcmp(argv[0], "env") == 0)
+		sh_builtin_env(argv)*/
+
 	if (ft_strcmp(argv[0], "cd") == 0)
 	{
 		sh_builtin_cd(argv[1], env);
 		return (1);
 	}
+	else if (ft_strcmp(argv[0], "env") == 0)
+	{
+		sh_builtin_env(argv, env);
+		return (1);
+	}
 	return (0);
 }
 
-void		sh_loop(char **env)
+void		sh_loop(char **environment)
 {
 	char *line;
 	char **argv;
 	char *path;
 	char **array_path;
+	char **env;
 
+	env = environment;
 	if (!(path = sh_get_env("PATH", env)))
 		ft_error_str("Error PATH is NULL\n");
 	while (42)
@@ -62,6 +75,9 @@ void		sh_loop(char **env)
 		array_path = sh_parse_path(path);
 		argv = sh_parse_argv(line);
 		if (argv[0] && sh_search_builtins(argv, env) == 0)
-			sh_search_exec(array_path, argv, env);
+		{
+
+			// sh_search_exec(array_path, argv, env);
+		}
 	}
 }

@@ -40,7 +40,7 @@ char	*sh_get_env(char *env_find, char **env)
 			// ft_free_array(&array);
 			return (ret);
 		}
-		env++;
+		++env;
 	}
 	// if (array)
 	// {
