@@ -38,7 +38,7 @@ static inline t_uint	sh_grant_access(char *path_exec)
 		return (-1);
 }
 
-static char			*sh_search_exec(char *path, char *file_name, char *cmd)
+static char			*sh_search_exec_cmd(char *path, char *file_name, char *cmd)
 {
 	char	*full_path;
 	t_uint	is_exec;
@@ -62,7 +62,7 @@ char				*sh_read_dir(char *path, char *cmd)
 		return (NULL);
 	while ((rd = readdir(dir)))
 	{
-		full_path = sh_search_exec(path, rd->d_name, cmd);
+		full_path = sh_search_exec_cmd(path, rd->d_name, cmd);
 		if (full_path != NULL)
 			return (full_path);
 	}
