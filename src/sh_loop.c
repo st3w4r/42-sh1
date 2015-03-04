@@ -63,15 +63,13 @@ static int sh_search_builtins(char **argv, char **env)
 	return (0);
 }
 
-void		sh_loop(char **environment)
+void		sh_loop(char **env)
 {
 	char *line;
 	char **argv;
 	char *path;
 	char **array_path;
-	char **env;
 
-	env = environment;
 	if (!(path = sh_get_env("PATH", env)))
 		ft_error_str("Error PATH is NULL\n");
 	while (42)

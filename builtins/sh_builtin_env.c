@@ -67,8 +67,8 @@ void	sh_builtin_env(char **argv, char **env)
         if (!(new_env = (char**)malloc(sizeof(char *) * arg_len + 1)))
             ft_malloc_error();
         count = 0;
-        while (env && *env)
-            new_env[count++] = *env++;
+        while (env && env[count])
+            new_env[count] = env[count], count++;
         arg_len -= sh_args_len(argv);
     }
 
@@ -78,8 +78,8 @@ void	sh_builtin_env(char **argv, char **env)
 ///Execution command
     if (argv[i])
     {
-        ft_putendl(argv[i]);
-        array_path = sh_parse_path(sh_get_env("PATH", env));
+        array_path = sh_parse_path(sh_get_env("PATH", new_env));
+        
         sh_search_exec(array_path, &(argv[i]), new_env);
     }
     else
