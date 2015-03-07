@@ -27,8 +27,8 @@ char	**sh_parse_path(char *path)
 
 char	*sh_get_env(char *env_find, char **env)
 {
-	char **array;
-	char *ret;
+	char	**array;
+	char	*ret;
 
 	// array = NULL;
 	while (*env)

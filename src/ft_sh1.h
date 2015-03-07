@@ -6,7 +6,7 @@
 /*   By: ybarbier <ybarbier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/16 16:31:18 by ybarbier          #+#    #+#             */
-/*   Updated: 2015/01/16 16:31:19 by ybarbier         ###   ########.fr       */
+/*   Updated: 2015/03/07 14:17:28 by ybarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,13 @@ void	ft_error_str_exit(char *str);
 */
 void	sh_builtin_cd(char *dir, char **env);
 void	sh_builtin_env(char **argv, char **env);
+
+/*
+** Name: sh_builtin_setenv
+** File: sh_builtin_setenv.c
+** Desc: Builtin Setenv
+*/
+int		sh_builtin_setenv(char *name, char *value, char **env);
 
 /*
 ** Name: sh_helper
