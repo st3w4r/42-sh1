@@ -12,85 +12,60 @@
 
 #include "../src/ft_sh1.h"
 
-/*
-int		sh_get_env_pos(char *env_find, char **env)
+static int	sh_builtin_get_env_pos(char *name, char **env)
 {
-	char	**array;
-	char	*ret;
+	size_t	name_len;
+	int		pos;
 
-	// array = NULL;
-	while (*env)
-	{
-		array = ft_strsplit(*env, '=');
-		if (ft_strcmp(env_find, array[0]) == 0)
-		{
-			ret = ft_strdup(array[1]);
-			return (ret);
-		}
-		++env;
-	}
-	return (0);
-}
-*/
-
-int sh_builtin_setenv_add(char *name, char *value, char ***env)
-{
-	char *val_old;
-	char *val_new;
-	size_t val_len;
-	size_t name_len;
-	char **new_env;
-
-	int pos;
-
-	name_len = ft_strlen(name);
-	val_len = ft_strlen(value);
 	pos = 0;
-
-	while ((*env)[pos])
+	name_len = ft_strlen(name);
+	while (env[pos])
 	{
-		if (ft_strncmp((*env)[pos], name, name_len) == 0 &&
-			((*env)[pos])[name_len] == '=')
-			break;
-		pos++;
+		if (ft_strncmp(env[pos], name, name_len) == 0 &&
+			(env[pos])[name_len] == '=')
+			break ;
+		++pos;
 	}
+	return (pos);
+}
+
+static char	*sh_builtin_setenv_new_val(char *name, char *value)
+{
+	char	*val_new;
 
 	val_new = NULL;
-
-	if (!(val_new = (char*)malloc((name_len + val_len + 2) * sizeof(char))))
+	if (!(val_new = (char*)malloc((ft_strlen(name) + ft_strlen(value) + 2))))
 		ft_malloc_error();
-	// val_new = ft_strcat(val_new, name);
-	// val_new = ft_strcat(ft_strcat(val_new, name), "=");
+	*val_new = 0;
 	val_new = ft_strcat(ft_strcat(ft_strcat(val_new, name), "="), value);
-	//
-	// ft_memcpy(val_new, name, name_len);
-	// val_new[name_len] = '=';
-	// ft_memcpy(&val_new[name_len + 1], value, val_len);
-	// val_new[(name_len + val_len + 1)] = '\0';
+	return (val_new);
+}
 
-	if ((val_old = sh_get_env(name, *env))) // Slot exist, replace content
-	{
-		free(val_old);
+int			sh_builtin_setenv_add(char *name, char *value, char ***env)
+{
+	char	*val_new;
+	char	**new_env;
+	int		pos;
+
+	pos = sh_builtin_get_env_pos(name, *env);
+	val_new = sh_builtin_setenv_new_val(name, value);
+	if (sh_get_env(name, *env))
 		(*env)[pos] = val_new;
-	}
-	else // Create new slot
+	else
 	{
 		if (!(new_env = (char**)malloc(sizeof(char *) * (sh_tablen(*env) + 2))))
 			ft_malloc_error();
 		pos = 0;
 		while (*env && (*env)[pos])
-		{
 			new_env[pos] = (*env)[pos], pos++;
-		}
 		new_env[pos] = val_new;
 		new_env[++pos] = NULL;
 		*env = new_env;
 	}
-
 	return (0);
 }
 
-int sh_builtin_setenv(char *name, char *value, char ***env)
+int			sh_builtin_setenv(char *name, char *value, char ***env)
 {
 	if (!name || *name == '\0' || ft_strchr(name, '=') != NULL ||
 		!value || !env)
