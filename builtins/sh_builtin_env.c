@@ -75,6 +75,12 @@ void	sh_builtin_env(char **argv, char **env)
 	while (argv[i] && ft_strchr(argv[i], '='))
 		new_env[arg_len++] = ft_strdup(argv[i]), ++i;
 
+	sh_builtin_setenv("SHELL", "What", &new_env);
+	sh_builtin_setenv("OK", "Test", &new_env);
+	sh_builtin_setenv("OKLoLWhat", "TestOOOOOOA", &new_env);
+	sh_builtin_setenv("s", "Test", &new_env);
+	sh_builtin_setenv("YOUPI", "TesaAaaas", &new_env);
+
 ///Execution command
 	if (argv[i])
 	{
@@ -84,6 +90,4 @@ void	sh_builtin_env(char **argv, char **env)
 	}
 	else
 		sh_print_env(new_env);
-
-
 }

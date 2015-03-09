@@ -17,7 +17,7 @@ PATH_OBJ = ./
 PATH_INC = ./libft/includes/
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -Wpadded -I $(PATH_INC)
+CFLAGS = -Wall -Wextra -Werror -Wpadded -Ofast -I $(PATH_INC)
 LIBS = -L libft/ -lft
 
 HEAD = $(PATH_SRC)ft_sh1.h
@@ -54,3 +54,7 @@ fclean: clean
 	/bin/rm -f $(NAME)
 
 re: fclean all
+
+debug: $(OBJ) $(OBJ_BUILT) $(HEAD)
+	make -C libft/
+	$(CC) $(OBJ) $(OBJ_BUILT) -o $(NAME) $(LIBS) -g

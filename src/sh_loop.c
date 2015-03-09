@@ -54,6 +54,11 @@ static int sh_search_builtins(char **argv, char **env)
 		sh_builtin_env(argv, env);
 		return (1);
 	}
+	else if (ft_strcmp(argv[0], "env") == 0)
+	{
+		// sh_builtin_setenv("SHELL", "What", &env);
+		return (1);
+	}
 	else if (ft_strcmp(argv[0], "exit") == 0)
 	{
 		ft_putendl("exit");

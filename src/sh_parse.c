@@ -31,6 +31,7 @@ char	*sh_get_env(char *env_find, char **env)
 	char	*ret;
 
 	// array = NULL;
+
 	while (*env)
 	{
 		array = ft_strsplit(*env, '=');

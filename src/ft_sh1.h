@@ -79,7 +79,7 @@ void	sh_builtin_env(char **argv, char **env);
 ** File: sh_builtin_setenv.c
 ** Desc: Builtin Setenv
 */
-int		sh_builtin_setenv(char *name, char *value, char **env);
+int		sh_builtin_setenv(char *name, char *value, char ***env);
 
 /*
 ** Name: sh_helper

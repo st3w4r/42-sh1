@@ -15,7 +15,7 @@ PATH_SRC = ./
 PATH_OBJ = ./
 
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -I ./includes/
+CFLAGS = -Wall -Wextra -Werror -Ofast -I ./includes/
 
 SRC = 	$(PATH_SRC)ft_strlen.c \
 		$(PATH_SRC)ft_strdup.c \
