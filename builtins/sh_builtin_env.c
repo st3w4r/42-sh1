@@ -44,7 +44,7 @@ void	sh_builtin_env(char **argv, char **env)
 	t_uint arg_len;
 	char **new_env;
 	char **array_path;
-
+	// char **array_split;
 
 	i = 0;
 	new_env = NULL;
@@ -63,6 +63,11 @@ void	sh_builtin_env(char **argv, char **env)
 	else
 	{
 		i = 1;
+
+		// array_split = ft_strsplit(argv[i], );
+		// sh_builtin_setenv(argv[i]);
+
+
 		arg_len = sh_tablen(env) + sh_args_len(argv);
 		if (!(new_env = (char**)malloc(sizeof(char *) * arg_len + 1)))
 			ft_malloc_error();
@@ -72,16 +77,32 @@ void	sh_builtin_env(char **argv, char **env)
 		arg_len -= sh_args_len(argv);
 	}
 
-	while (argv[i] && ft_strchr(argv[i], '='))
-		new_env[arg_len++] = ft_strdup(argv[i]), ++i;
+	if (argv[i])
+		sh_builtin_setenv(argv, &new_env);
 
-	sh_builtin_setenv("SHELL", "What", &new_env);
-	sh_builtin_setenv("OK", "Test", &new_env);
-	sh_builtin_setenv("OKLoLWhat", "TestOOOOOOA", &new_env);
-	sh_builtin_setenv("s", "Test", &new_env);
-	sh_builtin_setenv("YOUPI", "TesaAaaas", &new_env);
+	/*
+	while (argv[i] && ft_strchr(argv[i], '='))
+	{
+		array_split = ft_strsplit(argv[i], '=');
+		if (!array_split[1])
+			array_split[1] = "";
+		sh_builtin_setenv(array_split[0], array_split[1], &new_env);
+		++i;
+		// new_env[arg_len++] = ft_strdup(argv[i]), ++i;
+	}
+	*/
+	//
+	// sh_builtin_setenv("SHELL", "What", &new_env);
+	// sh_builtin_setenv("OK", "Test", &new_env);
+	// sh_builtin_setenv("OKLoLWhat", "TestOOOOOOA", &new_env);
+	// sh_builtin_setenv("s", "Test", &new_env);
+	// sh_builtin_setenv("YOUPI", "TesaAaaas", &new_env);
 
 ///Execution command
+	// ft_putendl(argv[i]);
+
+	while (argv[i] && ft_strchr(argv[i], '='))
+		++i;
 	if (argv[i])
 	{
 		array_path = sh_parse_path(sh_get_env("PATH", new_env));
