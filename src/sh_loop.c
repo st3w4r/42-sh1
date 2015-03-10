@@ -54,7 +54,8 @@ static int sh_search_builtins(char **argv, char ***env)
 		sh_builtin_env(argv, *env);
 		return (1);
 	}
-	else if (ft_strcmp(argv[0], "export") == 0)
+	else if (ft_strcmp(argv[0], "export") == 0 ||
+			ft_strcmp(argv[0], "setenv") == 0)
 	{
 		sh_builtin_setenv(argv, env);
 		return (1);
@@ -63,6 +64,16 @@ static int sh_search_builtins(char **argv, char ***env)
 	{
 		ft_putendl("exit");
 		exit(0);
+		return (1);
+	}
+	else if (sh_grant_access(argv[0]) == 0)
+	{
+		sh_fork_procees(argv[0], argv, *env);
+		return (1);
+	}
+	else if (sh_exist_dir_file(argv[0]) == 1)
+	{
+		sh_builtin_cd(argv[0], *env);
 		return (1);
 	}
 	return (0);
@@ -88,7 +99,7 @@ void		sh_loop(char **env)
 		if (argv[0] && sh_search_builtins(argv, &new_env) == 0)
 		{
 
-			// sh_search_exec(array_path, argv, env);
+			sh_search_exec(array_path, argv, env);
 		}
 	}
 }
