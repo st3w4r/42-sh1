@@ -31,7 +31,8 @@ SRC =	main.c \
 
 BUILT = sh_builtin_cd.c \
 		sh_builtin_env.c \
-		sh_builtin_setenv.c
+		sh_builtin_setenv.c \
+		sh_builtin_exit.c
 
 OBJ = $(addprefix $(PATH_SRC), $(SRC:.c=.o))
 OBJ_BUILT = $(addprefix $(PATH_BUILT), $(BUILT:.c=.o))
@@ -47,7 +48,7 @@ $(NAME): $(OBJ) $(OBJ_BUILT) $(HEAD)
 
 clean:
 	make -C libft/ clean
-	/bin/rm -f $(OBJ)
+	/bin/rm -f $(OBJ) $(OBJ_BUILT)
 
 fclean: clean
 	make -C libft/ fclean

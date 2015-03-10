@@ -84,6 +84,13 @@ int		sh_builtin_setenv_add(char *name, char *value, char ***env);
 int		sh_builtin_setenv(char **argv, char ***env);
 
 /*
+** Name: sh_builtin_exit
+** File: sh_builtin_exit.c
+** Desc: Builtin Exit with options
+*/
+void	sh_builtin_exit(char **argv);
+
+/*
 ** Name: sh_helper
 ** File: sh_helper.c
 ** Desc: Functions Helper
