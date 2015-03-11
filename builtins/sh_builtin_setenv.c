@@ -12,23 +12,6 @@
 
 #include "../src/ft_sh1.h"
 
-static int	sh_builtin_get_env_pos(char *name, char **env)
-{
-	size_t	name_len;
-	int		pos;
-
-	pos = 0;
-	name_len = ft_strlen(name);
-	while (env[pos])
-	{
-		if (ft_strncmp(env[pos], name, name_len) == 0 &&
-			(env[pos])[name_len] == '=')
-			break ;
-		++pos;
-	}
-	return (pos);
-}
-
 static char	*sh_builtin_setenv_new_val(char *name, char *value)
 {
 	char	*val_new;
@@ -51,7 +34,7 @@ int			sh_builtin_setenv_add(char *name, char *value, char ***env)
 		!value || !env)
 		return (-1);
 
-	pos = sh_builtin_get_env_pos(name, *env);
+	pos = sh_get_env_pos(name, *env);
 	val_new = sh_builtin_setenv_new_val(name, value);
 	if (sh_get_env(name, *env))
 		(*env)[pos] = val_new;

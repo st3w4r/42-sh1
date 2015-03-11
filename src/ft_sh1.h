@@ -47,6 +47,8 @@ void	sh_loop(char **environment);
 char	**sh_parse_argv(char *str_argv);
 char	**sh_parse_path(char *path);
 char	*sh_get_env(char *env_find, char **env);
+int		sh_get_env_pos(char *name, char **env);
+
 
 /*
 ** Name: sh_files
@@ -82,6 +84,13 @@ void	sh_builtin_env(char **argv, char **env);
 */
 int		sh_builtin_setenv_add(char *name, char *value, char ***env);
 int		sh_builtin_setenv(char **argv, char ***env);
+
+/*
+** Name: sh_builtin_unsetenv
+** File: sh_builtin_unsetenv.c
+** Desc: Builtin Unsetenv, Remove value in env
+*/
+int		sh_builtin_unsetenv(char **argv, char ***env);
 
 /*
 ** Name: sh_builtin_exit

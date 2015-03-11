@@ -50,3 +50,20 @@ char	*sh_get_env(char *env_find, char **env)
 	// }
 	return (NULL);
 }
+
+int		sh_get_env_pos(char *name, char **env)
+{
+	size_t	name_len;
+	int		pos;
+
+	pos = 0;
+	name_len = ft_strlen(name);
+	while (env[pos])
+	{
+		if (ft_strncmp(env[pos], name, name_len) == 0 &&
+			(env[pos])[name_len] == '=')
+			break ;
+		++pos;
+	}
+	return (pos);
+}

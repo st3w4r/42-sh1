@@ -64,6 +64,10 @@ static int sh_search_builtins(char **argv, char ***env)
 		sh_builtin_setenv(argv, env);
 		return (1);
 	}
+	else if (ft_strcmp(argv[0], "unsetenv") == 0)
+	{
+		sh_builtin_unsetenv(argv, env);
+	}
 	else if (ft_strcmp(argv[0], "exit") == 0)
 	{
 		sh_builtin_exit(argv);
