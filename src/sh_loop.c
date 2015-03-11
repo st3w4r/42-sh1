@@ -31,18 +31,22 @@ void sh_search_exec(char **array_path, char **argv, char **env)
 	{
 		full_path = sh_read_dir(*array_path, argv[0]);
 		if (full_path != NULL)
-			sh_fork_procees(full_path, argv, env);
+			return (sh_fork_procees(full_path, argv, env));
 		array_path++;
 	}
 }
 
 static int sh_search_builtins(char **argv, char ***env)
 {
+	char *path;
+	char **array_path;
+
 	/*
 	if (ft_strcmp(argv[0], "cd") == 0)
 		sh_builtin_cd(argv[1], env);
 	else if (ft_strcmp(argv[0], "env") == 0)
 		sh_builtin_env(argv)*/
+
 
 	if (ft_strcmp(argv[0], "cd") == 0)
 	{
@@ -72,6 +76,14 @@ static int sh_search_builtins(char **argv, char ***env)
 	}
 	else if (sh_exist_dir_file(argv[0]) == 1)
 	{
+		path = sh_get_env("PATH", *env);
+		array_path = sh_parse_path(path);
+		while (array_path && *array_path)
+		{
+			if (sh_read_dir(*array_path, argv[0]))
+				return (0);
+			++array_path;
+		}
 		sh_builtin_cd(argv[0], *env);
 		return (1);
 	}
@@ -93,12 +105,12 @@ void		sh_loop(char **env)
 	{
 		ft_putstr("$> ");
 		ft_get_next_line(0, &line);
+		path = sh_get_env("PATH", new_env);
 		array_path = sh_parse_path(path);
 		argv = sh_parse_argv(line);
 		if (argv[0] && sh_search_builtins(argv, &new_env) == 0)
 		{
-
-			sh_search_exec(array_path, argv, env);
+			sh_search_exec(array_path, argv, new_env);
 		}
 	}
 }
