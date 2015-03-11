@@ -74,10 +74,11 @@ int			sh_builtin_setenv(char **argv, char ***env)
 	char **array_split;
 	t_uint i;
 
-
-	i = 1;
+	i = 0;
 	if (!argv || !env)
 		return (-1);
+	while (argv[i] && !ft_strchr(argv[i], '='))
+		++i;
 	while (argv[i] && ft_strchr(argv[i], '='))
 	{
 		array_split = ft_strsplit(argv[i], '=');
