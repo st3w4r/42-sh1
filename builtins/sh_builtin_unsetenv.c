@@ -20,15 +20,13 @@ int		sh_builtin_unsetenv_remove(char *name, char ***env)
 	if (!name || *name == '\0' || !env)
 		return (-1);
 	pos = sh_get_env_pos(name, *env);
-	// free((*env)[pos]);
+	free((*env)[pos]);
 	p = &((*env)[pos]);
-	while (p)
+	while (*p)
 	{
-		ft_putendl("In");
-		// ft_putendl(*p);
-		if (!(*p = (*p + 1)))
+		if (!(p[0] = p[1]))
 			break;
-		++p;
+		p++;
 	}
 	return (0);
 }
@@ -42,5 +40,5 @@ int		sh_builtin_unsetenv(char **argv, char ***env)
 	val_env = sh_get_env(argv[1], *env);
 	if (!val_env)
 		return (-1);
-	return (sh_builtin_unsetenv_remove(val_env, env));
+	return (sh_builtin_unsetenv_remove(argv[1], env));
 }

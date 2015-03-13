@@ -14,7 +14,7 @@
 
 t_uint	sh_tablen(char **tab)
 {
-	int count;
+	t_uint count;
 
 	count = 0;
 	while (tab && tab[count])
@@ -25,15 +25,13 @@ t_uint	sh_tablen(char **tab)
 char	**sh_copy_env(char **env)
 {
 	char **new_env;
-	t_uint arg_len;
 	t_uint pos;
 
-	arg_len = sh_tablen(env);
-	if (!(new_env = (char**)malloc(sizeof(char *) * (sh_tablen(env) + 2))))
+	if (!(new_env = (char**)malloc(sizeof(char *) * (sh_tablen(env) + 1))))
 		ft_malloc_error();
 	pos = 0;
 	while (env && env[pos])
-		new_env[pos] = env[pos], pos++;
-	new_env[++pos] = NULL;
+		new_env[pos] = ft_strdup(env[pos]), pos++;
+	new_env[pos] = NULL;
 	return (new_env);
 }
