@@ -12,6 +12,11 @@
 
 #include "../src/ft_sh1.h"
 
+static void	sh_builtin_setenv_usage(void) {
+	ft_error_str("unsetenv: usage: unsetenv [name]\n");
+}
+
+
 static int	sh_builtin_unsetenv_remove(char *name, char ***env)
 {
 	int pos;
@@ -35,6 +40,8 @@ int			sh_builtin_unsetenv(char **argv, char ***env)
 {
 	char *val_env;
 
+	if (!(argv[1]))
+		sh_builtin_setenv_usage();
 	if (!argv || !env || !argv[1])
 		return (-1);
 	val_env = sh_get_env(argv[1], *env);

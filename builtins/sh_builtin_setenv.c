@@ -12,6 +12,10 @@
 
 #include "../src/ft_sh1.h"
 
+static void	sh_builtin_setenv_usage(void) {
+	ft_error_str("export: usage: export [name[=value]\n");
+}
+
 static char	*sh_builtin_setenv_new_val(char *name, char *value)
 {
 	char	*val_new;
@@ -33,7 +37,6 @@ int			sh_builtin_setenv_add(char *name, char *value, char ***env)
 	if (!name || *name == '\0' || ft_strchr(name, '=') != NULL ||
 		!value || !env)
 		return (-1);
-
 	pos = sh_get_env_pos(name, *env);
 	val_new = sh_builtin_setenv_new_val(name, value);
 	if (sh_get_env(name, *env))
@@ -54,11 +57,13 @@ int			sh_builtin_setenv_add(char *name, char *value, char ***env)
 
 int			sh_builtin_setenv(char **argv, char ***env)
 {
-	char **array_split;
-	t_uint i;
+	char	**array_split;
+	t_uint	i;
 
 	i = 0;
-	if (!argv || !env)
+	if (!(argv[1]) || !ft_strchr(argv[1], '='))
+		sh_builtin_setenv_usage();
+	if (!argv || !env || !argv[1] || !ft_strchr(argv[1], '='))
 		return (-1);
 	while (argv[i] && !ft_strchr(argv[i], '='))
 		++i;
@@ -70,5 +75,6 @@ int			sh_builtin_setenv(char **argv, char ***env)
 		sh_builtin_setenv_add(array_split[0], array_split[1], env);
 		++i;
 	}
+	// ft_arrfree(&array_split);
 	return (0);
 }
