@@ -55,7 +55,7 @@ void	sh_builtin_env(char **argv, char **env)
 	if (ft_strcmp(argv[1], "-i") == 0)
 	{
 		i = 2;
-		arg_len = sh_args_len(argv);
+		arg_len = ft_arrlen(argv);
 		if (!(new_env = (char**)malloc(sizeof(char *) * arg_len + 1)))
 			ft_malloc_error();
 		arg_len = 0;
@@ -68,7 +68,7 @@ void	sh_builtin_env(char **argv, char **env)
 		// sh_builtin_setenv(argv[i]);
 
 
-		arg_len = sh_tablen(env) + sh_args_len(argv);
+		arg_len = ft_arrlen(env) + sh_args_len(argv);
 		if (!(new_env = (char**)malloc(sizeof(char *) * arg_len + 1)))
 			ft_malloc_error();
 		count = 0;

@@ -40,7 +40,7 @@ int			sh_builtin_setenv_add(char *name, char *value, char ***env)
 		(*env)[pos] = val_new;
 	else
 	{
-		if (!(new_env = (char**)malloc(sizeof(char *) * (sh_tablen(*env) + 2))))
+		if (!(new_env = (char**)malloc(sizeof(char *) * (ft_arrlen(*env) + 2))))
 			ft_malloc_error();
 		pos = 0;
 		while (*env && (*env)[pos])

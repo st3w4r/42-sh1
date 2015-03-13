@@ -103,7 +103,5 @@ void	sh_builtin_exit(char **argv);
 ** File: sh_helper.c
 ** Desc: Functions Helper
 */
-t_uint	sh_tablen(char **tab);
-char	**sh_copy_env(char **env);
 
 #endif

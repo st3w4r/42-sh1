@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "ft_sh1.h"
-
+/*
 t_uint	sh_tablen(char **tab)
 {
 	t_uint count;
@@ -21,7 +21,8 @@ t_uint	sh_tablen(char **tab)
 		++count;
 	return (count);
 }
-
+*/
+/*
 char	**sh_copy_env(char **env)
 {
 	char **new_env;
@@ -35,3 +36,4 @@ char	**sh_copy_env(char **env)
 	new_env[pos] = NULL;
 	return (new_env);
 }
+*/

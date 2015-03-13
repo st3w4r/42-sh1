@@ -102,7 +102,7 @@ void		sh_loop(char **env)
 	char **array_path;
 	char **new_env;
 
-	new_env = sh_copy_env(env);
+	new_env = ft_arrcpy(env);
 	if (!(path = sh_get_env("PATH", new_env)))
 		ft_error_str("Error PATH is NULL\n");
 	while (42)
