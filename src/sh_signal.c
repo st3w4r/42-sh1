@@ -1,26 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   sh_signal.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ybarbier <ybarbier@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ybarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/01/16 16:23:46 by ybarbier          #+#    #+#             */
-/*   Updated: 2015/01/16 16:23:48 by ybarbier         ###   ########.fr       */
+/*   Created: 2015/03/13 20:31:31 by ybarbier          #+#    #+#             */
+/*   Updated: 2015/03/13 20:31:33 by ybarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_sh1.h"
 
-int		main(int argc, char **argv, char **env)
+static	void	sh_signal_sigint(int sig)
 {
-	(void)argc;
-	(void)argv;
+	ft_putendl("Signal");
+	ft_putnbr(sig);
+}
 
-	// signal(SIGQUIT, sh_signal_handler);
-	signal(SIGINT, sh_signal_handler);
-	sh_loop(env);
-
-	// nb_args = argc;
-	return (0);
+void	sh_signal_handler(int sig)
+{
+	if (sig == 2)
+		sh_signal_sigint(sig);
+	if (sig == 3)
+		ft_putendl("QUIT");
 }

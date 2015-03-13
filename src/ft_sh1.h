@@ -20,6 +20,7 @@
 # include <sys/stat.h>
 # include <unistd.h>
 # include <dirent.h>
+# include <signal.h>
 
 typedef struct stat t_stat;
 typedef struct dirent t_dirent;
@@ -58,6 +59,13 @@ int		sh_get_env_pos(char *name, char **env);
 t_uint	sh_grant_access(char *path_exec);
 t_uint	sh_exist_dir_file(char *name);
 char	*sh_read_dir(char *path, char *cmd);
+
+/*
+** Name: sh_signal
+** File: sh_signal.c
+** Desc: Trap signal, and exec cmd
+*/
+void	sh_signal_handler(int sig);
 
 /*
 ** Name: ft_error

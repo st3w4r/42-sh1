@@ -27,7 +27,9 @@ SRC =	main.c \
 		sh_parse.c \
 		sh_files.c \
 		sh_helper.c \
+		sh_signal.c \
 		ft_error.c
+
 
 BUILT = sh_builtin_cd.c \
 		sh_builtin_env.c \
