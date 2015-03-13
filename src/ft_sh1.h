@@ -23,7 +23,6 @@
 
 typedef struct stat t_stat;
 typedef struct dirent t_dirent;
-typedef unsigned int t_uint;
 
 struct s_lst
 {

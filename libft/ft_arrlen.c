@@ -1,26 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_free_array.c                                    :+:      :+:    :+:   */
+/*   ft_arrlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ybarbier <ybarbier@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ybarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/01/28 20:09:03 by ybarbier          #+#    #+#             */
-/*   Updated: 2015/01/28 20:09:05 by ybarbier         ###   ########.fr       */
+/*   Created: 2015/03/13 16:04:02 by ybarbier          #+#    #+#             */
+/*   Updated: 2015/03/13 16:04:05 by ybarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdlib.h>
 
-void	ft_free_array(char ***array)
+t_uint	ft_arrlen(char **arr)
 {
-	int i;
+	t_uint count;
 
-	i = 0;
-	while ((*array)[i])
-		free((*array)[i++]);
-	free((*array)[i]);
-	free(*array);
-	*array = NULL;
+	count = 0;
+	while (arr && arr[count])
+		++count;
+	return (count);
 }

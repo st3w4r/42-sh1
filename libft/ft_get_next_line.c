@@ -20,7 +20,7 @@ static char	*ft_strjoinf(char *s1, char *s2)
 		return (NULL);
 	ft_strcpy(ret, s1);
 	ft_strcat(ret, s2);
-	// free((char*)s1);
+	free((char*)s1);
 	return (ret);
 }
 

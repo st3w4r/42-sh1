@@ -1,28 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_free_array.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ybarbier <ybarbier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/11/10 18:05:40 by ybarbier          #+#    #+#             */
-/*   Updated: 2014/11/14 18:45:22 by ybarbier         ###   ########.fr       */
+/*   Created: 2015/01/28 20:09:03 by ybarbier          #+#    #+#             */
+/*   Updated: 2015/01/28 20:09:05 by ybarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_GET_NEXT_LINE_H
-# define FT_GET_NEXT_LINE_H
+#include "libft.h"
+#include <stdlib.h>
 
-# define BUFF_SIZE 1000
+void	ft_arrfree(char ***arr)
+{
+	int i;
 
-# include <fcntl.h>
-# include <unistd.h>
-# include <stdlib.h>
-# include <stdio.h>
-# include <ctype.h>
-
-# include "libft.h"
-
-int			ft_get_next_line(int const fd, char **line);
-
-#endif
+	i = 0;
+	while ((*arr)[i])
+		free((*arr)[i++]);
+	free((*arr)[i]);
+	free(*arr);
+	*arr = NULL;
+}
