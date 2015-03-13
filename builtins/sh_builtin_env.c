@@ -12,6 +12,10 @@
 
 #include "../src/ft_sh1.h"
 
+static void	sh_builtin_env_usage(void) {
+	ft_error_str("usage: env [-i] [name=value ...] [utility [argument ...]]\n");
+}
+
 static void sh_print_env(char **env)
 {
 	while (env && *env)
@@ -51,7 +55,8 @@ void	sh_builtin_env(char **argv, char **env)
 
 	if (!argv || !(*argv))
 		return ;
-
+	if (ft_strcmp(argv[1], "-h") == 0 || ft_strcmp(argv[1], "--help") == 0)
+		return (sh_builtin_env_usage());
 	if (ft_strcmp(argv[1], "-i") == 0)
 	{
 		i = 2;
@@ -77,7 +82,7 @@ void	sh_builtin_env(char **argv, char **env)
 		arg_len -= sh_args_len(argv);
 	}
 
-	if (argv[i])
+	if (argv[i] || !ft_strchr(argv[i], '='))
 		sh_builtin_setenv(&(argv[i]), &new_env);
 
 	/*

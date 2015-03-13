@@ -61,10 +61,13 @@ int			sh_builtin_setenv(char **argv, char ***env)
 	t_uint	i;
 
 	i = 0;
-	if (!(argv[1]) || !ft_strchr(argv[1], '='))
-		sh_builtin_setenv_usage();
-	if (!argv || !env || !argv[1] || !ft_strchr(argv[1], '='))
+	if (!argv || !(*argv) || !env)
 		return (-1);
+	if (ft_strcmp(argv[1], "-h") == 0 || ft_strcmp(argv[1], "--help") == 0)
+	{
+		sh_builtin_setenv_usage();
+		return (0);
+	}
 	while (argv[i] && !ft_strchr(argv[i], '='))
 		++i;
 	while (argv[i] && ft_strchr(argv[i], '='))
