@@ -12,7 +12,7 @@
 
 #include "../src/ft_sh1.h"
 
-int		sh_builtin_unsetenv_remove(char *name, char ***env)
+static int	sh_builtin_unsetenv_remove(char *name, char ***env)
 {
 	int pos;
 	char **p;
@@ -31,7 +31,7 @@ int		sh_builtin_unsetenv_remove(char *name, char ***env)
 	return (0);
 }
 
-int		sh_builtin_unsetenv(char **argv, char ***env)
+int			sh_builtin_unsetenv(char **argv, char ***env)
 {
 	char *val_env;
 

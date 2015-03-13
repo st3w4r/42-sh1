@@ -106,7 +106,9 @@ void	sh_builtin_env(char **argv, char **env)
 	{
 		array_path = sh_parse_path(sh_get_env("PATH", new_env));
 
-		sh_search_exec(array_path, &(argv[i]), new_env);
+		if (argv[0] && sh_search_builtins(&(argv[i]), &new_env) == 0)
+			if (sh_search_exec(array_path, &(argv[i]), new_env) == 0)
+				ft_error_str(ft_strcat(argv[0], ": Command not found.\n"));
 	}
 	else
 		sh_print_env(new_env);

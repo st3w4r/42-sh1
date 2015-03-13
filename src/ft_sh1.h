@@ -35,7 +35,8 @@ struct s_lst
 ** Name: sh_loop
 ** File: sh_loop.c
 */
-void	sh_search_exec(char **array_path, char **argv, char **env);
+int	    sh_search_exec(char **array_path, char **argv, char **env);
+int		sh_search_builtins(char **argv, char ***env);
 void	sh_loop(char **environment);
 
 /*

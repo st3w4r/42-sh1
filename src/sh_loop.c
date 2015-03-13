@@ -23,7 +23,7 @@ static void	sh_fork_procees(char *path, char **av, char **env)
 		execve(path, av, env);
 }
 
-void sh_search_exec(char **array_path, char **argv, char **env)
+int		sh_search_exec(char **array_path, char **argv, char **env)
 {
 	char *full_path;
 
@@ -31,12 +31,16 @@ void sh_search_exec(char **array_path, char **argv, char **env)
 	{
 		full_path = sh_read_dir(*array_path, argv[0]);
 		if (full_path != NULL)
-			return (sh_fork_procees(full_path, argv, env));
+		{
+			sh_fork_procees(full_path, argv, env);
+			return (1);
+		}
 		array_path++;
 	}
+	return (0);
 }
 
-static int sh_search_builtins(char **argv, char ***env)
+int		sh_search_builtins(char **argv, char ***env)
 {
 	char *path;
 	char **array_path;
@@ -67,6 +71,7 @@ static int sh_search_builtins(char **argv, char ***env)
 	else if (ft_strcmp(argv[0], "unsetenv") == 0)
 	{
 		sh_builtin_unsetenv(argv, env);
+		return (1);
 	}
 	else if (ft_strcmp(argv[0], "exit") == 0)
 	{
@@ -112,9 +117,10 @@ void		sh_loop(char **env)
 		path = sh_get_env("PATH", new_env);
 		array_path = sh_parse_path(path);
 		argv = sh_parse_argv(line);
+
 		if (argv[0] && sh_search_builtins(argv, &new_env) == 0)
-		{
-			sh_search_exec(array_path, argv, new_env);
-		}
+			if (sh_search_exec(array_path, argv, new_env) == 0)
+				ft_error_str(ft_strcat(argv[0], ": Command not found.\n"));
+
 	}
 }
