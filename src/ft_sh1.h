@@ -82,7 +82,13 @@ void	ft_error_str_exit(char *str);
 ** File: sh_builtin_cd.c
 ** Desc: Builtin CD
 */
-void	sh_builtin_cd(char *dir, char **env);
+void	sh_builtin_cd(char *dir, char ***env);
+
+/*
+** Name: sh_builtin_env
+** File: sh_builtin_env.c
+** Desc: Builtin env, usage
+*/
 void	sh_builtin_env(char **argv, char **env);
 
 /*

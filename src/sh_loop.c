@@ -54,7 +54,7 @@ int		sh_search_builtins(char **argv, char ***env)
 
 	if (ft_strcmp(argv[0], "cd") == 0)
 	{
-		sh_builtin_cd(argv[1], *env);
+		sh_builtin_cd(argv[1], env);
 		return (1);
 	}
 	else if (ft_strcmp(argv[0], "env") == 0)
@@ -93,7 +93,7 @@ int		sh_search_builtins(char **argv, char ***env)
 				return (0);
 			++array_path;
 		}
-		sh_builtin_cd(argv[0], *env);
+		sh_builtin_cd(argv[0], env);
 		// free(path);
 		// ft_arrfree(&array_path);
 		return (1);
