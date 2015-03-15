@@ -12,16 +12,18 @@
 
 #include "ft_sh1.h"
 
-static	void	sh_signal_sigint(int sig)
+static	void	sh_signal_sigint(void)
 {
-	ft_putendl("Signal");
-	ft_putnbr(sig);
+	// ft_putendl("Signal");
+	// ft_putnbr(sig);
+	ft_putstr("\n");
+	ft_putstr("$> ");
 }
 
 void	sh_signal_handler(int sig)
 {
 	if (sig == 2)
-		sh_signal_sigint(sig);
+		sh_signal_sigint();
 	if (sig == 3)
 		ft_putendl("QUIT");
 }

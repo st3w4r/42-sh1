@@ -94,6 +94,8 @@ int		sh_search_builtins(char **argv, char ***env)
 			++array_path;
 		}
 		sh_builtin_cd(argv[0], *env);
+		// free(path);
+		// ft_arrfree(&array_path);
 		return (1);
 	}
 	return (0);
@@ -113,7 +115,8 @@ void		sh_loop(char **env)
 	while (42)
 	{
 		ft_putstr("$> ");
-		ft_get_next_line(0, &line);
+		if (ft_get_next_line(0, &line) == 0)
+			sh_builtin_exit(0);
 		path = sh_get_env("PATH", new_env);
 		array_path = sh_parse_path(path);
 		argv = sh_parse_argv(line);

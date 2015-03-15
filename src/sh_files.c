@@ -56,7 +56,7 @@ char				*sh_read_dir(char *path, char *cmd)
 {
 	DIR				*dir;
 	struct dirent	*rd;
-	char	*full_path;
+	char			*full_path;
 
 	if ((dir = opendir(path)) == NULL)
 		return (NULL);
