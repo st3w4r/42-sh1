@@ -65,7 +65,7 @@ char	*sh_read_dir(char *path, char *cmd);
 ** File: sh_signal.c
 ** Desc: Trap signal, and exec cmd
 */
-void	sh_signal_handler(int sig);
+void	sh_signal_gestion(void);
 
 /*
 ** Name: ft_error
@@ -112,5 +112,6 @@ void	sh_builtin_exit(char **argv);
 ** File: sh_helper.c
 ** Desc: Functions Helper
 */
+void	sh_display_prompt(void);
 
 #endif

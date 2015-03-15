@@ -11,6 +11,22 @@
 /* ************************************************************************** */
 
 #include "ft_sh1.h"
+
+void	sh_display_prompt(void)
+{
+	char *buf;
+
+	buf = NULL;
+	ft_putstr("\n");
+	ft_putstr("\033[1;37m");
+	if ((buf = getcwd(buf, 32)))
+		ft_putendl(buf);
+	ft_putstr("\033[0m");
+	ft_putstr("$> ");
+
+
+}
+
 /*
 t_uint	sh_tablen(char **tab)
 {

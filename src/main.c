@@ -14,11 +14,13 @@
 
 int		main(int argc, char **argv, char **env)
 {
+
 	(void)argc;
 	(void)argv;
 
 	// signal(SIGQUIT, sh_signal_handler);
-	signal(SIGINT, sh_signal_handler);
+	sh_signal_gestion();
+	// ft_putendl(env[50]);
 	sh_loop(env);
 
 	// nb_args = argc;

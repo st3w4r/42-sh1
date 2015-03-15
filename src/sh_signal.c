@@ -14,16 +14,23 @@
 
 static	void	sh_signal_sigint(void)
 {
-	// ft_putendl("Signal");
-	// ft_putnbr(sig);
 	ft_putstr("\n");
-	ft_putstr("$> ");
+	sh_display_prompt();
 }
 
-void	sh_signal_handler(int sig)
+static void		sh_signal_handler(int sig)
 {
-	if (sig == 2)
+	if (sig == SIGINT)
 		sh_signal_sigint();
-	if (sig == 3)
+	else if (sig == SIGQUIT)
 		ft_putendl("QUIT");
+	// else if (sig == SIGSEGV)
+	// 	ft_putendl("Erreur"), exit(0);
+}
+
+void	sh_signal_gestion(void)
+{
+	signal(SIGINT, sh_signal_handler);
+	signal(SIGQUIT, sh_signal_handler);
+	// signal(SIGSEGV, sh_signal_handler);
 }
