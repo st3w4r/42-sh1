@@ -114,7 +114,7 @@ void		sh_loop(char **env)
 		ft_error_str("Error PATH is NULL\n");
 	while (42)
 	{
-		sh_display_prompt();
+		sh_display_prompt(new_env);
 		if (ft_get_next_line(0, &line) == 0)
 			sh_builtin_exit(0);
 		path = sh_get_env("PATH", new_env);

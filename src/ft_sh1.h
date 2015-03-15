@@ -118,6 +118,6 @@ void	sh_builtin_exit(char **argv);
 ** File: sh_helper.c
 ** Desc: Functions Helper
 */
-void	sh_display_prompt(void);
+void	sh_display_prompt(char **env);
 
 #endif
