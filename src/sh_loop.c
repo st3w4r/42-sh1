@@ -107,10 +107,27 @@ int		sh_search_builtins(char **argv, char ***env)
 	return (0);
 }
 
+static void	sh_exec_cmd(char *line, char **array_path, char **new_env)
+{
+	char **argv;
+	char **array_cmd;
+
+	array_cmd = ft_strsplit(line, ';');
+	while (*array_cmd)
+	{
+		while (*array_cmd[0] == ' ' || *array_cmd[0] == '\t')
+			(*array_cmd)++;
+		argv = sh_parse_argv(*array_cmd);
+		if (argv[0] && sh_search_builtins(argv, &new_env) == 0)
+			if (sh_search_exec(array_path, argv, new_env) == 0)
+				ft_error_str(ft_strcat(argv[0], ": Command not found.\n"));
+		++array_cmd;
+	}
+}
+
 void		sh_loop(char **env)
 {
 	char *line;
-	char **argv;
 	char *path;
 	char **array_path;
 	char **new_env;
@@ -126,9 +143,15 @@ void		sh_loop(char **env)
 			sh_builtin_exit(0);
 		path = sh_get_env("PATH", new_env);
 		array_path = sh_parse_path(path);
-		argv = sh_parse_argv(line);
-		if (argv[0] && sh_search_builtins(argv, &new_env) == 0)
-			if (sh_search_exec(array_path, argv, new_env) == 0)
-				ft_error_str(ft_strcat(argv[0], ": Command not found.\n"));
+		sh_exec_cmd(line, array_path, new_env);
+		/*array_cmd = ft_strsplit(line, ';');
+		while (*array_cmd)
+		{
+			argv = sh_parse_argv(*array_cmd);
+			if (argv[0] && sh_search_builtins(argv, &new_env) == 0)
+				if (sh_search_exec(array_path, argv, new_env) == 0)
+					ft_error_str(ft_strcat(argv[0], ": Command not found.\n"));
+			++array_cmd;
+		}*/
 	}
 }
