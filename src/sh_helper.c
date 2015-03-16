@@ -11,12 +11,15 @@
 /* ************************************************************************** */
 
 #include "ft_sh1.h"
-/*
+
 char	*sh_get_uid(void)
 {
+	struct passwd *pwd;
 
+	pwd = getpwuid(getuid());
+	return (pwd == NULL ? NULL : pwd->pw_name);
 }
-*/
+
 char	*sh_get_hostname(void)
 {
 	char *buf;
@@ -27,6 +30,7 @@ char	*sh_get_hostname(void)
 	gethostname(buf, 255);
 	return (buf);
 }
+
 char	*sh_replace_home(char *path, char **env)
 {
 	char *home_path;
@@ -48,40 +52,20 @@ void	sh_display_prompt(char **env)
 {
 	char buf[1024];
 	char *hostname;
+	char *username;
 
 	ft_putstr("\n");
+	ft_putstr("\033[1;37m");
+	if ((username = sh_get_uid()))
+		ft_putstr(username);
+	ft_putstr("\033[0m");
+	ft_putchar('@');
 	if ((hostname = sh_get_hostname()))
-		ft_putstr(hostname), ft_putchar(' ');
+		ft_putstr(hostname);
+	ft_putchar(' ');
 	ft_putstr("\033[1;37m");
 	if (getcwd(buf, 1024))
 		ft_putendl(sh_replace_home(buf, env));
 	ft_putstr("\033[0m");
 	ft_putstr("$> ");
 }
-
-/*
-t_uint	sh_tablen(char **tab)
-{
-	t_uint count;
-
-	count = 0;
-	while (tab && tab[count])
-		++count;
-	return (count);
-}
-*/
-/*
-char	**sh_copy_env(char **env)
-{
-	char **new_env;
-	t_uint pos;
-
-	if (!(new_env = (char**)malloc(sizeof(char *) * (sh_tablen(env) + 1))))
-		ft_malloc_error();
-	pos = 0;
-	while (env && env[pos])
-		new_env[pos] = ft_strdup(env[pos]), pos++;
-	new_env[pos] = NULL;
-	return (new_env);
-}
-*/

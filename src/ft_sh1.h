@@ -21,6 +21,7 @@
 # include <unistd.h>
 # include <dirent.h>
 # include <signal.h>
+# include <pwd.h>
 
 typedef struct stat t_stat;
 typedef struct dirent t_dirent;
