@@ -39,6 +39,7 @@ int			sh_search_exec(char **array_path, char **argv, char **env)
 		if (full_path != NULL)
 		{
 			sh_fork_procees(full_path, argv, env);
+			// FREE(full_path);
 			return (1);
 		}
 		array_path++;
@@ -77,9 +78,8 @@ int			sh_search_builtins(char **argv, char ***env)
 			++array_path;
 		}
 		sh_builtin_cd(argv[0], env), state = 1;
-		// free(path);
-		// ft_arrfree(&array_path);
-		// return (1);
+		FREE(path);
+		FREE_ARR(array_path);
 	}
 	return (state);
 }
@@ -100,6 +100,7 @@ static void		sh_exec_cmd(char *line, char **array_path, char **new_env)
 				ft_error_str(ft_strcat(argv[0], ": Command not found.\n"));
 		++array_cmd;
 	}
+	FREE_ARR(array_cmd);
 }
 
 void			sh_loop(char **env)
@@ -121,5 +122,7 @@ void			sh_loop(char **env)
 		path = sh_get_env("PATH", new_env);
 		array_path = sh_parse_path(path);
 		sh_exec_cmd(line, array_path, new_env);
+		// FREE(path);
+		// FREE_ARR(array_path);
 	}
 }

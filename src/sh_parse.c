@@ -14,10 +14,7 @@
 
 char	**sh_parse_argv(char *str_argv)
 {
-	char **array_argv;
-
-	array_argv = ft_strsplit(str_argv, ' ');
-	return (array_argv);
+	return (ft_strsplit(str_argv, ' '));
 }
 
 char	**sh_parse_path(char *path)
@@ -30,24 +27,19 @@ char	*sh_get_env(char *env_find, char **env)
 	char	**array;
 	char	*ret;
 
-	// array = NULL;
-
+	array = NULL;
 	while (*env)
 	{
 		array = ft_strsplit(*env, '=');
 		if (ft_strcmp(env_find, array[0]) == 0)
 		{
 			ret = ft_strdup(array[1]);
-			// ft_free_array(&array);
+			FREE_ARR(array);
 			return (ret);
 		}
 		++env;
 	}
-	// if (array)
-	// {
-	// 	ft_free_array(&array);
-	// 	array = NULL;
-	// }
+	FREE_ARR(array);
 	return (NULL);
 }
 

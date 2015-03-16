@@ -43,8 +43,7 @@ char	*sh_replace_home(char *path, char **env)
 		path[1] = 0;
 		ft_strcat(path, pos + ft_strlen(home_path));
 	}
-	if (home_path)
-		free(home_path), home_path = NULL;
+	FREE(home_path);
 	return (path);
 }
 
@@ -68,4 +67,5 @@ void	sh_display_prompt(char **env)
 		ft_putendl(sh_replace_home(buf, env));
 	ft_putstr("\033[0m");
 	ft_putstr("$> ");
+	FREE(hostname);
 }

@@ -23,6 +23,10 @@
 # include <signal.h>
 # include <pwd.h>
 
+
+#define FREE(x) { if (x) free(x); x = NULL; }
+#define FREE_ARR(x) { if (x && *x) ft_arrfree(&x); }
+
 typedef struct stat t_stat;
 typedef struct dirent t_dirent;
 
