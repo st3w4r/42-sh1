@@ -20,7 +20,11 @@ static void	sh_fork_procees(char *path, char **av, char **env)
 	if (father > 0)
 		wait(0);
 	else if (father == 0)
-		execve(path, av, env);
+	{
+		if (execve(path, av, env) == -1)
+			ft_error_str(ft_strcat(av[0], " : exec format error.\n"));
+		exit(0);
+	}
 }
 
 int		sh_search_exec(char **array_path, char **argv, char **env)
