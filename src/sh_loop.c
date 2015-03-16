@@ -12,6 +12,8 @@
 
 #include "ft_sh1.h"
 
+char ***g_env;
+
 static void	sh_fork_procees(char *path, char **av, char **env)
 {
 	pid_t	father;
@@ -114,6 +116,7 @@ void		sh_loop(char **env)
 	char **new_env;
 
 	new_env = ft_arrcpy(env);
+	g_env = &new_env;
 	if (!(path = sh_get_env("PATH", new_env)))
 		ft_error_str("Error PATH is NULL\n");
 	while (42)
@@ -124,10 +127,8 @@ void		sh_loop(char **env)
 		path = sh_get_env("PATH", new_env);
 		array_path = sh_parse_path(path);
 		argv = sh_parse_argv(line);
-
 		if (argv[0] && sh_search_builtins(argv, &new_env) == 0)
 			if (sh_search_exec(array_path, argv, new_env) == 0)
 				ft_error_str(ft_strcat(argv[0], ": Command not found.\n"));
-
 	}
 }

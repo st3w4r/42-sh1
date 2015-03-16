@@ -15,7 +15,7 @@
 static	void	sh_signal_sigint(void)
 {
 	ft_putstr("\n");
-	// sh_display_prompt();
+	sh_display_prompt(*g_env);
 }
 
 static void		sh_signal_handler(int sig)

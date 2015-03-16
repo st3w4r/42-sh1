@@ -33,6 +33,8 @@ struct s_lst
     struct s_list   *next;
 }   t_lst;
 
+extern char ***g_env;
+
 /*
 ** Name: sh_loop
 ** File: sh_loop.c

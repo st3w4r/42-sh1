@@ -53,11 +53,6 @@ void	sh_display_prompt(char **env)
 	char buf[1024];
 	char *hostname;
 	char *username;
-	// char *result;
-	//
-	// *result = NULL;
-	// if ()
-	// ft_strcat()
 
 	ft_putstr("\n");
 	ft_putstr("\033[1;37m");
