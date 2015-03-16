@@ -29,7 +29,7 @@ static void	sh_fork_procees(char *path, char **av, char **env)
 	}
 }
 
-int		sh_search_exec(char **array_path, char **argv, char **env)
+int			sh_search_exec(char **array_path, char **argv, char **env)
 {
 	char *full_path;
 
@@ -46,49 +46,26 @@ int		sh_search_exec(char **array_path, char **argv, char **env)
 	return (0);
 }
 
-int		sh_search_builtins(char **argv, char ***env)
+int			sh_search_builtins(char **argv, char ***env)
 {
-	char *path;
-	char **array_path;
+	int		state;
+	char	*path;
+	char	**array_path;
 
-	/*
+	state = 0;
 	if (ft_strcmp(argv[0], "cd") == 0)
-		sh_builtin_cd(argv[1], env);
+		sh_builtin_cd(argv[1], env), state = 1;
 	else if (ft_strcmp(argv[0], "env") == 0)
-		sh_builtin_env(argv)*/
-
-
-	if (ft_strcmp(argv[0], "cd") == 0)
-	{
-		sh_builtin_cd(argv[1], env);
-		return (1);
-	}
-	else if (ft_strcmp(argv[0], "env") == 0)
-	{
-		sh_builtin_env(argv, *env);
-		return (1);
-	}
+		sh_builtin_env(argv, *env), state = 1;
 	else if (ft_strcmp(argv[0], "export") == 0 ||
 			ft_strcmp(argv[0], "setenv") == 0)
-	{
-		sh_builtin_setenv(argv, env);
-		return (1);
-	}
+		sh_builtin_setenv(argv, env), state = 1;
 	else if (ft_strcmp(argv[0], "unsetenv") == 0)
-	{
-		sh_builtin_unsetenv(argv, env);
-		return (1);
-	}
+		sh_builtin_unsetenv(argv, env), state = 1;
 	else if (ft_strcmp(argv[0], "exit") == 0)
-	{
-		sh_builtin_exit(argv);
-		return (1);
-	}
+		sh_builtin_exit(argv), state = 1;
 	else if (sh_grant_access(argv[0]) == 0)
-	{
-		sh_fork_procees(argv[0], argv, *env);
-		return (1);
-	}
+		sh_fork_procees(argv[0], argv, *env), state = 1;
 	else if (sh_exist_dir_file(argv[0]) == 1)
 	{
 		path = sh_get_env("PATH", *env);
@@ -99,15 +76,15 @@ int		sh_search_builtins(char **argv, char ***env)
 				return (0);
 			++array_path;
 		}
-		sh_builtin_cd(argv[0], env);
+		sh_builtin_cd(argv[0], env), state = 1;
 		// free(path);
 		// ft_arrfree(&array_path);
-		return (1);
+		// return (1);
 	}
-	return (0);
+	return (state);
 }
 
-static void	sh_exec_cmd(char *line, char **array_path, char **new_env)
+static void		sh_exec_cmd(char *line, char **array_path, char **new_env)
 {
 	char **argv;
 	char **array_cmd;
@@ -125,7 +102,7 @@ static void	sh_exec_cmd(char *line, char **array_path, char **new_env)
 	}
 }
 
-void		sh_loop(char **env)
+void			sh_loop(char **env)
 {
 	char *line;
 	char *path;
@@ -144,14 +121,5 @@ void		sh_loop(char **env)
 		path = sh_get_env("PATH", new_env);
 		array_path = sh_parse_path(path);
 		sh_exec_cmd(line, array_path, new_env);
-		/*array_cmd = ft_strsplit(line, ';');
-		while (*array_cmd)
-		{
-			argv = sh_parse_argv(*array_cmd);
-			if (argv[0] && sh_search_builtins(argv, &new_env) == 0)
-				if (sh_search_exec(array_path, argv, new_env) == 0)
-					ft_error_str(ft_strcat(argv[0], ": Command not found.\n"));
-			++array_cmd;
-		}*/
 	}
 }
