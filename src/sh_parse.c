@@ -14,7 +14,11 @@
 
 char	**sh_parse_argv(char *str_argv)
 {
-	return (ft_strsplit(str_argv, ' '));
+	char **array_argv;
+
+	str_argv = ft_strreplace_char(str_argv, '\t', ' ');
+	array_argv = ft_strsplit(str_argv, ' ');
+	return (array_argv);
 }
 
 char	**sh_parse_path(char *path)
