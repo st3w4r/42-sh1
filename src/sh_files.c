@@ -12,7 +12,7 @@
 
 #include "ft_sh1.h"
 
-inline t_uint	sh_exist_dir_file(char *name)
+inline t_uint		sh_exist_dir_file(char *name)
 {
 	int		state;
 	t_stat	*file_stat;
@@ -30,7 +30,7 @@ inline t_uint	sh_exist_dir_file(char *name)
 	return (state);
 }
 
-inline t_uint	sh_grant_access(char *path_exec)
+inline t_uint		sh_grant_access(char *path_exec)
 {
 	if (sh_exist_dir_file(path_exec) == 2)
 		if (access(path_exec, X_OK) == 0)
@@ -77,9 +77,3 @@ char				*sh_read_dir(char *path, char *cmd)
 		return (NULL);
 	return (NULL);
 }
-
-
-// void sh_files()
-// {
-//
-// }
