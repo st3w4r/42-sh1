@@ -113,8 +113,6 @@ void			sh_loop(char **env)
 
 	new_env = ft_arrcpy(env);
 	g_env = &new_env;
-	if (!(path = sh_get_env("PATH", new_env)))
-		ft_error_str("Error PATH is NULL\n");
 	while (42)
 	{
 		sh_display_prompt(new_env);
@@ -123,6 +121,7 @@ void			sh_loop(char **env)
 		path = sh_get_env("PATH", new_env);
 		array_path = sh_parse_path(path);
 		sh_exec_cmd(line, array_path, &new_env);
+
 		// FREE(path);
 		// FREE_ARR(array_path);
 	}

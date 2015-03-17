@@ -37,6 +37,7 @@ int			sh_builtin_setenv_add(char *name, char *value, char ***env)
 	if (!name || *name == '\0' || ft_strchr(name, '=') != NULL ||
 		!value || !env)
 		return (-1);
+
 	pos = sh_get_env_pos(name, *env);
 	val_new = sh_builtin_setenv_new_val(name, value);
 	if (sh_get_env(name, *env))

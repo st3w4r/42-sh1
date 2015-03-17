@@ -38,10 +38,10 @@ char	*sh_get_env(char *env_find, char **env)
 		if (ft_strcmp(env_find, array[0]) == 0)
 		{
 			ret = ft_strdup(array[1]);
-			// FREE_ARR(array);
+			FREE_ARR(array);
 			return (ret);
 		}
-		// FREE_ARR(array);
+		FREE_ARR(array);
 		++env;
 	}
 	return (NULL);
