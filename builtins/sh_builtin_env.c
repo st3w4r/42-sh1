@@ -44,7 +44,7 @@ t_uint	sh_args_len(char **argv)
 void	sh_builtin_env(char **argv, char **env)
 {
 	int i;
-	t_uint count;
+	// t_uint count;
 	t_uint arg_len;
 	char **new_env;
 	char **array_path;
@@ -63,6 +63,7 @@ void	sh_builtin_env(char **argv, char **env)
 		arg_len = ft_arrlen(argv);
 		if (!(new_env = (char**)malloc(sizeof(char *) * arg_len + 1)))
 			ft_malloc_error();
+		new_env[0] = NULL;
 		arg_len = 0;
 	}
 	else
@@ -72,14 +73,18 @@ void	sh_builtin_env(char **argv, char **env)
 		// array_split = ft_strsplit(argv[i], );
 		// sh_builtin_setenv(argv[i]);
 
-
-		arg_len = ft_arrlen(env) + sh_args_len(argv);
+		new_env = ft_arrcpy(env);
+		// arg_len = ft_arrlen(env) + sh_args_len(argv);
+		/*
 		if (!(new_env = (char**)malloc(sizeof(char *) * arg_len + 1)))
 			ft_malloc_error();
+		new_env[0] = NULL;
 		count = 0;
 		while (env && env[count])
 			new_env[count] = env[count], count++;
-		arg_len -= sh_args_len(argv);
+		new_env[count] = NULL;
+		*/
+		// arg_len -= sh_args_len(argv);
 	}
 
 	if (argv[i] || !ft_strchr(argv[i], '='))
