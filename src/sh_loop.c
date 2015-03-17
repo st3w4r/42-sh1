@@ -39,7 +39,7 @@ int			sh_search_exec(char **array_path, char **argv, char **env)
 		if (full_path != NULL)
 		{
 			sh_fork_procees(full_path, argv, env);
-			// FREE(full_path);
+			FREE(full_path);
 			return (1);
 		}
 		array_path++;
@@ -121,8 +121,8 @@ void			sh_loop(char **env)
 		path = sh_get_env("PATH", new_env);
 		array_path = sh_parse_path(path);
 		sh_exec_cmd(line, array_path, &new_env);
-
-		// FREE(path);
-		// FREE_ARR(array_path);
+		FREE(line);
+		FREE(path);
+		FREE_ARR(array_path);
 	}
 }

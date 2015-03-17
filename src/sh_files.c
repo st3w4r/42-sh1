@@ -14,17 +14,20 @@
 
 inline t_uint	sh_exist_dir_file(char *name)
 {
-	t_stat *file_stat;
+	int		state;
+	t_stat	*file_stat;
 
+	state = 0;
 	if (!(file_stat = (t_stat*)malloc(sizeof(t_stat))))
 		ft_exit();
 	if (lstat(name, file_stat) == -1)
-		return (0);
+		state = 0;
 	else if (S_ISDIR(file_stat->st_mode))
-		return (1);
+		state = 1;
 	else if (S_ISREG(file_stat->st_mode))
-		return (2);
-	return (0);
+		state = 2;
+	FREE(file_stat);
+	return (state);
 }
 
 inline t_uint	sh_grant_access(char *path_exec)
@@ -41,14 +44,18 @@ inline t_uint	sh_grant_access(char *path_exec)
 static char			*sh_search_exec_cmd(char *path, char *file_name, char *cmd)
 {
 	char	*full_path;
+	char	*path_replace;
 	t_uint	is_exec;
 
-	full_path = ft_strjoin(ft_strjoin(path, "/"), file_name);
+	path_replace = ft_strjoin(path, "/");
+	full_path = ft_strjoin(path_replace, file_name);
+	FREE(path_replace);
 	is_exec = -1;
 	is_exec = sh_grant_access(full_path);
 	if (is_exec == 0)
 		if (ft_strcmp(file_name, cmd) == 0)
 			return (full_path);
+	FREE(full_path);
 	return (NULL);
 }
 
