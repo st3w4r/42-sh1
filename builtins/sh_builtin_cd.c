@@ -41,5 +41,5 @@ void		sh_builtin_cd(char *dir, char ***env)
 	}
 	else
 		ft_error_str("ft_minishell: cd: no such file or directory\n");
-	free(dir);
+	// free(dir); Not Allocated
 }
