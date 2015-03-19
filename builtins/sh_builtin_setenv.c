@@ -29,6 +29,12 @@ static char	*sh_builtin_setenv_new_val(char *name, char *value)
 	return (val_new);
 }
 
+static void	sh_builtin_setenv_replace_val(char ***env, int pos, char *val_new)
+{
+	FREE((*env)[pos]);
+	(*env)[pos] = val_new;
+}
+
 int			sh_builtin_setenv_add(char *name, char *value, char ***env)
 {
 	char	*val_new;
@@ -42,10 +48,7 @@ int			sh_builtin_setenv_add(char *name, char *value, char ***env)
 	pos = sh_get_env_pos(name, *env);
 	val_new = sh_builtin_setenv_new_val(name, value);
 	if ((val_env = sh_get_env(name, *env)))
-	{
-		FREE((*env)[pos]);
-		(*env)[pos] = val_new;
-	}
+		sh_builtin_setenv_replace_val(env, pos, val_new);
 	else
 	{
 		if (!(new_env = (char**)malloc(sizeof(char *) * (ft_arrlen(*env) + 2))))
