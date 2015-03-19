@@ -88,23 +88,25 @@ static void		sh_exec_cmd(char *line, char **array_path, char ***new_env)
 {
 	char	**argv;
 	char	**array_cmd;
-	char	**ptr_arr;
+	int		pos;
+	int		count;
 
 	array_cmd = ft_strsplit(line, ';');
-	ptr_arr = &array_cmd[0];
-	while (array_cmd[0])
+	pos = 0;
+	count = 0;
+	while (array_cmd[count])
 	{
-		while (array_cmd[0][0] == ' ' || array_cmd[0][0] == '\t')
-			(array_cmd[0])++;
-		argv = sh_parse_argv(array_cmd[0]);
+		while (array_cmd[count][pos] == ' ' || array_cmd[count][pos] == '\t')
+			++pos;
+		argv = sh_parse_argv(&(array_cmd[count][pos]));
 		if (argv[0] && sh_search_builtins(argv, new_env) == 0)
 			if (sh_search_exec(array_path, argv, *new_env) == 0)
 				ft_error_str("Command not found.\n");
 				// ft_error_str(ft_strcat(argv[0], ": Command not found.\n"));
-		++array_cmd;
+		++count;
+		FREE_ARR(argv);
 	}
-	// FREE_ARR(ptr_arr);
-	FREE_ARR(argv);
+	FREE_ARR(array_cmd)
 }
 
 void			sh_loop(char **env)

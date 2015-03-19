@@ -12,7 +12,7 @@
 
 #include "ft_sh1.h"
 
-inline t_uint		sh_exist_dir_file(char *name)
+inline t_uint	sh_exist_dir_file(char *name)
 {
 	int		state;
 	t_stat	file_stat;
@@ -27,7 +27,7 @@ inline t_uint		sh_exist_dir_file(char *name)
 	return (state);
 }
 
-inline t_uint		sh_grant_access(char *path_exec)
+inline t_uint	sh_grant_access(char *path_exec)
 {
 	if (sh_exist_dir_file(path_exec) == 2)
 		if (access(path_exec, X_OK) == 0)
@@ -38,7 +38,7 @@ inline t_uint		sh_grant_access(char *path_exec)
 		return (-1);
 }
 
-static char			*sh_search_exec_cmd(char *path, char *cmd)
+static char		*sh_search_exec_cmd(char *path, char *cmd)
 {
 	char	*full_path;
 	char	*path_replace;
@@ -55,10 +55,9 @@ static char			*sh_search_exec_cmd(char *path, char *cmd)
 	return (NULL);
 }
 
-
-char				*sh_read_dir(char *path, char *cmd)
+char			*sh_read_dir(char *path, char *cmd)
 {
-	char			*full_path;
+	char	*full_path;
 
 	full_path = sh_search_exec_cmd(path, cmd);
 	if (full_path != NULL)
