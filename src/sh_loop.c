@@ -50,8 +50,6 @@ int			sh_search_exec(char **array_path, char **argv, char **env)
 int			sh_search_builtins(char **argv, char ***env)
 {
 	int		state;
-	char	*path;
-	char	**array_path;
 
 	state = 0;
 	if (ft_strcmp(argv[0], "cd") == 0)
@@ -68,19 +66,7 @@ int			sh_search_builtins(char **argv, char ***env)
 	else if (sh_grant_access(argv[0]) == 0)
 		sh_fork_procees(argv[0], argv, *env), state = 1;
 	else if (sh_exist_dir_file(argv[0]) == 1)
-	{
-		path = sh_get_env("PATH", *env);
-		array_path = sh_parse_path(path);
-		while (array_path && *array_path)
-		{
-			if (sh_read_dir(*array_path, argv[0]))
-				return (0);
-			++array_path;
-		}
-		sh_builtin_cd(argv[0], env), state = 1;
-		// FREE(path);
-		// FREE_ARR(array_path);
-	}
+		state = sh_builtin_cd_auto(env, argv[0]);
 	return (state);
 }
 

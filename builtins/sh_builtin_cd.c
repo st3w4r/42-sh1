@@ -24,21 +24,50 @@ static void	sh_builtin_cd_open(char *dir, char ***env)
 		sh_builtin_setenv_add("PWD", buf, env);
 }
 
+int			sh_builtin_cd_auto(char ***env, char *dir)
+{
+	char	*path;
+	char	**array_path;
+	int		pos;
+
+	pos = 0;
+	path = sh_get_env("PATH", *env);
+	array_path = sh_parse_path(path);
+	while (array_path && array_path[pos])
+	{
+		if (sh_read_dir(array_path[pos], dir))
+		{
+			FREE(path);
+			FREE_ARR(array_path);
+			return (0);
+		}
+		++pos;
+	}
+	sh_builtin_cd(dir, env);
+	FREE(path);
+	FREE_ARR(array_path);
+	return (1);
+}
+
 void		sh_builtin_cd(char *dir, char ***env)
 {
 	if (dir == NULL)
+	{
 		if (!(dir = sh_get_env("HOME", *env)))
 			return (ft_error_str("ft_minishell: cd: HOME not set\n"));
-	if (ft_strcmp(dir, "-") == 0)
+	}
+	else if (ft_strcmp(dir, "-") == 0)
+	{
 		if (!(dir = sh_get_env("OLDPWD", *env)))
 			return (ft_error_str("ft_minishell: cd: OLDPWD not set\n"));
-	if (ft_strcmp(dir, "~") == 0)
+	}
+	else if (ft_strcmp(dir, "~") == 0)
+	{
 		if (!(dir = sh_get_env("HOME", *env)))
 			return (ft_error_str("ft_minishell: cd: HOME not set\n"));
-	if (sh_exist_dir_file(dir) == 1)
-	{
-		sh_builtin_cd_open(dir, env);
 	}
+	if (sh_exist_dir_file(dir) == 1)
+		sh_builtin_cd_open(dir, env);
 	else
 		ft_error_str("ft_minishell: cd: no such file or directory\n");
 }
