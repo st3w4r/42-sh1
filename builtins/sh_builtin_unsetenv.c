@@ -12,15 +12,15 @@
 
 #include "../src/ft_sh1.h"
 
-static void	sh_builtin_setenv_usage(void) {
+static void	sh_builtin_setenv_usage(void)
+{
 	ft_error_str("unsetenv: usage: unsetenv [name]\n");
 }
 
-
 static int	sh_builtin_unsetenv_remove(char *name, char ***env)
 {
-	int pos;
-	char **p;
+	int		pos;
+	char	**p;
 
 	if (!name || *name == '\0' || !env)
 		return (-1);
@@ -30,7 +30,7 @@ static int	sh_builtin_unsetenv_remove(char *name, char ***env)
 	while (*p)
 	{
 		if (!(p[0] = p[1]))
-			break;
+			break ;
 		p++;
 	}
 	return (0);

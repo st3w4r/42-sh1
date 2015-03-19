@@ -12,7 +12,8 @@
 
 #include "../src/ft_sh1.h"
 
-static void	sh_builtin_setenv_usage(void) {
+static void	sh_builtin_setenv_usage(void)
+{
 	ft_error_str("export: usage: export [name[=value]\n");
 }
 
@@ -37,7 +38,6 @@ int			sh_builtin_setenv_add(char *name, char *value, char ***env)
 	if (!name || *name == '\0' || ft_strchr(name, '=') != NULL ||
 		!value || !env)
 		return (-1);
-
 	pos = sh_get_env_pos(name, *env);
 	val_new = sh_builtin_setenv_new_val(name, value);
 	if (sh_get_env(name, *env))
@@ -78,7 +78,7 @@ int			sh_builtin_setenv(char **argv, char ***env)
 			array_split[1] = "";
 		sh_builtin_setenv_add(array_split[0], array_split[1], env);
 		++i;
+		FREE_ARR(array_split);
 	}
-	// ft_arrfree(&array_split);
 	return (0);
 }

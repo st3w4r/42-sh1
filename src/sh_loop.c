@@ -14,7 +14,7 @@
 
 char ***g_env;
 
-static void	sh_fork_procees(char *path, char **av, char **env)
+static void		sh_fork_procees(char *path, char **av, char **env)
 {
 	pid_t	father;
 
@@ -24,12 +24,12 @@ static void	sh_fork_procees(char *path, char **av, char **env)
 	else if (father == 0)
 	{
 		if (execve(path, av, env) == -1)
-			ft_error_str(ft_strcat(av[0], " : exec format error.\n"));
+			ft_error_str("Exec format error.\n");
 		exit(0);
 	}
 }
 
-int			sh_search_exec(char **array_path, char **argv, char **env)
+int				sh_search_exec(char **array_path, char **argv, char **env)
 {
 	char *full_path;
 
@@ -47,7 +47,7 @@ int			sh_search_exec(char **array_path, char **argv, char **env)
 	return (0);
 }
 
-int			sh_search_builtins(char **argv, char ***env)
+int				sh_search_builtins(char **argv, char ***env)
 {
 	int		state;
 

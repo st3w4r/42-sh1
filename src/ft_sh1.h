@@ -23,19 +23,18 @@
 # include <signal.h>
 # include <pwd.h>
 
+# define FREE(x) { if (x) free(x); x = NULL; }
+# define FREE_ARR(x) { if (x && *x) ft_arrfree(&x); }
 
-#define FREE(x) { if (x) free(x); x = NULL; }
-#define FREE_ARR(x) { if (x && *x) ft_arrfree(&x); }
+typedef struct stat		t_stat;
+typedef struct dirent	t_dirent;
 
-typedef struct stat t_stat;
-typedef struct dirent t_dirent;
-
-struct s_lst
+struct	s_lst
 {
-    char            *path;
-    struct dirent   *rd;
-    struct s_list   *next;
-}   t_lst;
+	char			*path;
+	struct dirent	*rd;
+	struct s_list	*next;
+}		t_lst;
 
 extern char ***g_env;
 
@@ -43,20 +42,19 @@ extern char ***g_env;
 ** Name: sh_loop
 ** File: sh_loop.c
 */
-int	    sh_search_exec(char **array_path, char **argv, char **env);
+int		sh_search_exec(char **array_path, char **argv, char **env);
 int		sh_search_builtins(char **argv, char ***env);
 void	sh_loop(char **environment);
 
 /*
-** Name: sh_parce
-** File: sh_parce.c
+** Name: sh_parse
+** File: sh_parse.c
 ** Desc: All function about parsing
 */
 char	**sh_parse_argv(char *str_argv);
 char	**sh_parse_path(char *path);
 char	*sh_get_env(char *env_find, char **env);
 int		sh_get_env_pos(char *name, char **env);
-
 
 /*
 ** Name: sh_files

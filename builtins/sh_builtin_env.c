@@ -12,7 +12,8 @@
 
 #include "../src/ft_sh1.h"
 
-static void	sh_builtin_env_usage(void) {
+static void	sh_builtin_env_usage(void)
+{
 	ft_error_str("usage: env [-i] [name=value ...] [utility [argument ...]]\n");
 }
 
@@ -25,7 +26,7 @@ static void sh_print_env(char **env)
 	}
 }
 
-t_uint	sh_args_len(char **argv)
+t_uint		sh_args_len(char **argv)
 {
 	int i;
 	int count;
@@ -41,18 +42,32 @@ t_uint	sh_args_len(char **argv)
 	return (count);
 }
 
-void	sh_builtin_env(char **argv, char **env)
+static void	sh_builtin_env_exec(char **argv, char **new_env, int i)
 {
-	int i;
-	// t_uint count;
-	t_uint arg_len;
-	char **new_env;
 	char **array_path;
-	// char **array_split;
 
-	i = 0;
+	while (argv[i] && ft_strchr(argv[i], '='))
+		++i;
+	if (argv[i])
+	{
+		array_path = sh_parse_path(sh_get_env("PATH", new_env));
+		if (argv[0] && sh_search_builtins(&(argv[i]), &new_env) == 0)
+			if (sh_search_exec(array_path, &(argv[i]), new_env) == 0)
+				ft_error_str("Command not found.\n");
+		FREE(array_path);
+	}
+	else
+		sh_print_env(new_env);
+}
+
+void		sh_builtin_env(char **argv, char **env)
+{
+	int		i;
+	t_uint	arg_len;
+	char	**new_env;
+
+	i = 1;
 	new_env = NULL;
-
 	if (!argv || !(*argv))
 		return ;
 	if (ft_strcmp(argv[1], "-h") == 0 || ft_strcmp(argv[1], "--help") == 0)
@@ -67,60 +82,9 @@ void	sh_builtin_env(char **argv, char **env)
 		arg_len = 0;
 	}
 	else
-	{
-		i = 1;
-
-		// array_split = ft_strsplit(argv[i], );
-		// sh_builtin_setenv(argv[i]);
 		new_env = ft_arrcpy(env);
-		// arg_len = ft_arrlen(env) + sh_args_len(argv);
-		/*
-		if (!(new_env = (char**)malloc(sizeof(char *) * arg_len + 1)))
-			ft_malloc_error();
-		new_env[0] = NULL;
-		count = 0;
-		while (env && env[count])
-			new_env[count] = env[count], count++;
-		new_env[count] = NULL;
-		*/
-		// arg_len -= sh_args_len(argv);
-	}
-
 	if (argv[i] || !ft_strchr(argv[i], '='))
 		sh_builtin_setenv(&(argv[i]), &new_env);
-
-	/*
-	while (argv[i] && ft_strchr(argv[i], '='))
-	{
-		array_split = ft_strsplit(argv[i], '=');
-		if (!array_split[1])
-			array_split[1] = "";
-		sh_builtin_setenv(array_split[0], array_split[1], &new_env);
-		++i;
-		// new_env[arg_len++] = ft_strdup(argv[i]), ++i;
-	}
-	*/
-	//
-	// sh_builtin_setenv("SHELL", "What", &new_env);
-	// sh_builtin_setenv("OK", "Test", &new_env);
-	// sh_builtin_setenv("OKLoLWhat", "TestOOOOOOA", &new_env);
-	// sh_builtin_setenv("s", "Test", &new_env);
-	// sh_builtin_setenv("YOUPI", "TesaAaaas", &new_env);
-
-///Execution command
-
-	while (argv[i] && ft_strchr(argv[i], '='))
-		++i;
-	if (argv[i])
-	{
-		array_path = sh_parse_path(sh_get_env("PATH", new_env));
-
-		if (argv[0] && sh_search_builtins(&(argv[i]), &new_env) == 0)
-			if (sh_search_exec(array_path, &(argv[i]), new_env) == 0)
-				ft_error_str(ft_strcat(argv[0], ": Command not found.\n"));
-		// FREE(array_path);
-	}
-	else
-		sh_print_env(new_env);
+	sh_builtin_env_exec(argv, new_env, i);
 	FREE_ARR(new_env);
 }

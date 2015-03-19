@@ -18,6 +18,7 @@ PATH_INC = ./libft/includes/
 
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -Wpadded -Ofast -I $(PATH_INC)
+# CFLAGS = -Ofast -I $(PATH_INC) -g
 LIBS = -L libft/ -lft
 
 HEAD = $(PATH_SRC)ft_sh1.h

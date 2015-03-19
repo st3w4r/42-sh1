@@ -23,16 +23,9 @@ static void		sh_signal_handler(int sig)
 {
 	if (sig == SIGINT)
 		sh_signal_sigint();
-	else if (sig == SIGQUIT)
-		ft_putendl("QUIT");
-	// else if (sig == SIGSEGV)
-		// ft_putendl("Erreur"), exit(0);
 }
 
-void	sh_signal_gestion(void)
+void			sh_signal_gestion(void)
 {
 	signal(SIGINT, sh_signal_handler);
-	// signal(SIGQUIT, sh_signal_handler);
-	// signal(SIGINT, SIG_IGN);
-	// signal(SIGSEGV, sh_signal_handler);
 }

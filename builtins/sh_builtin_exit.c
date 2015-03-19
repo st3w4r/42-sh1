@@ -24,7 +24,7 @@ void	sh_builtin_exit(char **argv)
 		else
 		{
 			ft_putendl("exit: Expression Syntax.");
-			return;
+			return ;
 		}
 	}
 	ft_putendl("exit");
