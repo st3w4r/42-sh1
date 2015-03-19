@@ -33,6 +33,7 @@ int			sh_builtin_setenv_add(char *name, char *value, char ***env)
 {
 	char	*val_new;
 	char	**new_env;
+	char	*val_env;
 	int		pos;
 
 	if (!name || *name == '\0' || ft_strchr(name, '=') != NULL ||
@@ -40,8 +41,11 @@ int			sh_builtin_setenv_add(char *name, char *value, char ***env)
 		return (-1);
 	pos = sh_get_env_pos(name, *env);
 	val_new = sh_builtin_setenv_new_val(name, value);
-	if (sh_get_env(name, *env))
+	if ((val_env = sh_get_env(name, *env)))
+	{
+		FREE((*env)[pos]);
 		(*env)[pos] = val_new;
+	}
 	else
 	{
 		if (!(new_env = (char**)malloc(sizeof(char *) * (ft_arrlen(*env) + 2))))
@@ -53,6 +57,7 @@ int			sh_builtin_setenv_add(char *name, char *value, char ***env)
 		new_env[++pos] = NULL;
 		*env = new_env;
 	}
+	FREE(val_env);
 	return (0);
 }
 
@@ -75,8 +80,9 @@ int			sh_builtin_setenv(char **argv, char ***env)
 	{
 		array_split = ft_strsplit(argv[i], '=');
 		if (!array_split[1])
-			array_split[1] = "";
-		sh_builtin_setenv_add(array_split[0], array_split[1], env);
+			sh_builtin_setenv_add(array_split[0], "", env);
+		else
+			sh_builtin_setenv_add(array_split[0], array_split[1], env);
 		++i;
 		FREE_ARR(array_split);
 	}

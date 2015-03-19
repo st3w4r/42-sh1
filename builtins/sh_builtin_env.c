@@ -45,16 +45,19 @@ t_uint		sh_args_len(char **argv)
 static void	sh_builtin_env_exec(char **argv, char **new_env, int i)
 {
 	char **array_path;
+	char *val_env;
 
 	while (argv[i] && ft_strchr(argv[i], '='))
 		++i;
 	if (argv[i])
 	{
-		array_path = sh_parse_path(sh_get_env("PATH", new_env));
+		val_env = sh_get_env("PATH", new_env);
+		array_path = sh_parse_path(val_env);
 		if (argv[0] && sh_search_builtins(&(argv[i]), &new_env) == 0)
 			if (sh_search_exec(array_path, &(argv[i]), new_env) == 0)
 				ft_error_str("Command not found.\n");
-		FREE(array_path);
+		FREE(val_env);
+		FREE_ARR(array_path);
 	}
 	else
 		sh_print_env(new_env);

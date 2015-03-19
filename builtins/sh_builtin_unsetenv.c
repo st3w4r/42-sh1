@@ -47,5 +47,6 @@ int			sh_builtin_unsetenv(char **argv, char ***env)
 	val_env = sh_get_env(argv[1], *env);
 	if (!val_env)
 		return (-1);
+	FREE(val_env);
 	return (sh_builtin_unsetenv_remove(argv[1], env));
 }
