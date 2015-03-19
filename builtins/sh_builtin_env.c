@@ -72,7 +72,6 @@ void	sh_builtin_env(char **argv, char **env)
 
 		// array_split = ft_strsplit(argv[i], );
 		// sh_builtin_setenv(argv[i]);
-
 		new_env = ft_arrcpy(env);
 		// arg_len = ft_arrlen(env) + sh_args_len(argv);
 		/*
