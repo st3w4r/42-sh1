@@ -79,10 +79,10 @@ static void		sh_exec_cmd(char *line, char **array_path, char ***new_env)
 	char	*str;
 
 	array_cmd = ft_strsplit(line, ';');
-	pos = 0;
 	count = 0;
 	while (array_cmd && array_cmd[count])
 	{
+		pos = 0;
 		while (array_cmd[count][pos] == ' ' || array_cmd[count][pos] == '\t')
 			++pos;
 		argv = sh_parse_argv(&(array_cmd[count][pos]));

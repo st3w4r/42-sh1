@@ -16,7 +16,7 @@ PATH_BUILT = ./builtins/
 PATH_OBJ = ./
 PATH_INC = ./libft/includes/
 
-CC = cc
+CC = gcc
 CFLAGS = -Wall -Wextra -Werror -Wpadded -Ofast -I $(PATH_INC)
 # CFLAGS = -Ofast -I $(PATH_INC) -g
 LIBS = -L libft/ -lft
