@@ -29,16 +29,24 @@ static char	*sh_builtin_setenv_new_val(char *name, char *value)
 	return (val_new);
 }
 
-static void	sh_builtin_setenv_replace_val(char ***env, int pos, char *val_new)
+static void	sh_builtin_setenv_replace_env(char ***env, int pos, char *val_new)
 {
-	FREE((*env)[pos]);
-	(*env)[pos] = val_new;
+	char	**new_env;
+
+	if (!(new_env = (char**)malloc(sizeof(char *) * (ft_arrlen(*env) + 2))))
+		ft_malloc_error();
+	pos = 0;
+	while (*env && (*env)[pos])
+		new_env[pos] = (*env)[pos], pos++;
+	new_env[pos] = val_new;
+	new_env[++pos] = NULL;
+	FREE(*env);
+	*env = new_env;
 }
 
 int			sh_builtin_setenv_add(char *name, char *value, char ***env)
 {
 	char	*val_new;
-	char	**new_env;
 	char	*val_env;
 	int		pos;
 
@@ -48,18 +56,12 @@ int			sh_builtin_setenv_add(char *name, char *value, char ***env)
 	pos = sh_get_env_pos(name, *env);
 	val_new = sh_builtin_setenv_new_val(name, value);
 	if ((val_env = sh_get_env(name, *env)))
-		sh_builtin_setenv_replace_val(env, pos, val_new);
-	else
 	{
-		if (!(new_env = (char**)malloc(sizeof(char *) * (ft_arrlen(*env) + 2))))
-			ft_malloc_error();
-		pos = 0;
-		while (*env && (*env)[pos])
-			new_env[pos] = (*env)[pos], pos++;
-		new_env[pos] = val_new;
-		new_env[++pos] = NULL;
-		*env = new_env;
+		FREE((*env)[pos]);
+		(*env)[pos] = val_new;
 	}
+	else
+		sh_builtin_setenv_replace_env(env, pos, val_new);
 	FREE(val_env);
 	return (0);
 }
