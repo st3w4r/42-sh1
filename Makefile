@@ -36,6 +36,7 @@ BUILT = sh_builtin_cd.c \
 		sh_builtin_env.c \
 		sh_builtin_setenv.c \
 		sh_builtin_unsetenv.c \
+		sh_builtin_clear.c \
 		sh_builtin_exit.c
 
 OBJ = $(addprefix $(PATH_SRC), $(SRC:.c=.o))
