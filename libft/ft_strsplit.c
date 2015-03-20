@@ -54,7 +54,7 @@ char				**ft_strsplit(char const *s, char c)
 	char			*str;
 
 	str = (char *)s;
-	if (!str)
+	if (!str || *str == 0)
 		return (NULL);
 	counter = 0;
 	count_word = ft_split_count(str, c);
