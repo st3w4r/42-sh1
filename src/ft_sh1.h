@@ -113,6 +113,13 @@ int		sh_builtin_setenv(char **argv, char ***env);
 int		sh_builtin_unsetenv(char **argv, char ***env);
 
 /*
+** Name: sh_builtin_clear
+** File: sh_builtin_clear.c
+** Desc: Builtin Clear, Clear window, display one prompt
+*/
+void	sh_builtin_clear(void);
+
+/*
 ** Name: sh_builtin_exit
 ** File: sh_builtin_exit.c
 ** Desc: Builtin Exit with options
