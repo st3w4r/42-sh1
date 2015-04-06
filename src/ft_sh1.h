@@ -61,7 +61,7 @@ int		sh_get_env_pos(char *name, char **env);
 ** File: sh_files.c
 ** Desc: Open directory en search files
 */
-t_uint	sh_grant_access(char *path_exec);
+int		sh_grant_access(char *path_exec);
 t_uint	sh_exist_dir_file(char *name);
 char	*sh_read_dir(char *path, char *cmd);
 

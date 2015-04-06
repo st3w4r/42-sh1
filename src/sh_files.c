@@ -27,7 +27,7 @@ inline t_uint	sh_exist_dir_file(char *name)
 	return (state);
 }
 
-inline t_uint	sh_grant_access(char *path_exec)
+inline int		sh_grant_access(char *path_exec)
 {
 	if (sh_exist_dir_file(path_exec) == 2)
 		if (access(path_exec, X_OK) == 0)
