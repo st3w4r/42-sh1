@@ -51,23 +51,29 @@ int			sh_builtin_cd_auto(char ***env, char *dir)
 
 void		sh_builtin_cd(char *dir, char ***env)
 {
-	if (dir == NULL)
+	char *val;
+
+	val = ft_strdup(dir);
+	if (val == NULL)
 	{
-		if (!(dir = sh_get_env("HOME", *env)))
+		if (!(val = sh_get_env("HOME", *env)))
 			return (ft_error_str("ft_minishell: cd: HOME not set\n"));
 	}
-	else if (ft_strcmp(dir, "-") == 0)
+	else if (ft_strcmp(val, "-") == 0)
 	{
-		if (!(dir = sh_get_env("OLDPWD", *env)))
+		FREE(val);
+		if (!(val = sh_get_env("OLDPWD", *env)))
 			return (ft_error_str("ft_minishell: cd: OLDPWD not set\n"));
 	}
-	else if (ft_strcmp(dir, "~") == 0)
+	else if (ft_strcmp(val, "~") == 0)
 	{
-		if (!(dir = sh_get_env("HOME", *env)))
+		FREE(val);
+		if (!(val = sh_get_env("HOME", *env)))
 			return (ft_error_str("ft_minishell: cd: HOME not set\n"));
 	}
-	if (sh_exist_dir_file(dir) == 1)
-		sh_builtin_cd_open(dir, env);
+	if (sh_exist_dir_file(val) == 1)
+		sh_builtin_cd_open(val, env);
 	else
 		ft_error_str("ft_minishell: cd: no such file or directory\n");
+	FREE(val);
 }
