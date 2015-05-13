@@ -42,7 +42,7 @@ t_uint		sh_args_len(char **argv)
 	return (count);
 }
 
-static void	sh_builtin_env_exec(char **argv, char **new_env, int i)
+static void	sh_builtin_env_exec(char **argv, char ***new_env, int i)
 {
 	char **array_path;
 	char *val_env;
@@ -51,16 +51,16 @@ static void	sh_builtin_env_exec(char **argv, char **new_env, int i)
 		++i;
 	if (argv[i])
 	{
-		val_env = sh_get_env("PATH", new_env);
+		val_env = sh_get_env("PATH", *new_env);
 		array_path = sh_parse_path(val_env);
-		if (argv[0] && sh_search_builtins(&(argv[i]), &new_env) == 0)
-			if (sh_search_exec(array_path, &(argv[i]), new_env) == 0)
+		if (argv[0] && sh_search_builtins(&(argv[i]), new_env) == 0)
+			if (sh_search_exec(array_path, &(argv[i]), *new_env) == 0)
 				ft_error_str("Command not found.\n");
 		FREE(val_env);
 		FREE_ARR(array_path);
 	}
 	else
-		sh_print_env(new_env);
+		sh_print_env(*new_env);
 }
 
 void		sh_builtin_env(char **argv, char **env)
@@ -88,6 +88,6 @@ void		sh_builtin_env(char **argv, char **env)
 		new_env = ft_arrcpy(env);
 	if (argv[i] || !ft_strchr(argv[i], '='))
 		sh_builtin_setenv(&(argv[i]), &new_env);
-	sh_builtin_env_exec(argv, new_env, i);
+	sh_builtin_env_exec(argv, &new_env, i);
 	FREE_ARR(new_env);
 }
