@@ -78,8 +78,7 @@ void		sh_builtin_env(char **argv, char **env)
 	if (ft_strcmp(argv[1], "-i") == 0)
 	{
 		i = 2;
-		arg_len = ft_arrlen(argv);
-		if (!(new_env = (char**)malloc(sizeof(char *) * (arg_len + 1))))
+		if (!(new_env = (char**)malloc(sizeof(char *) * (1))))
 			ft_malloc_error();
 		new_env[0] = NULL;
 		arg_len = 0;
