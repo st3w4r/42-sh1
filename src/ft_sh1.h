@@ -6,7 +6,7 @@
 /*   By: ybarbier <ybarbier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/16 16:31:18 by ybarbier          #+#    #+#             */
-/*   Updated: 2015/03/07 14:17:28 by ybarbier         ###   ########.fr       */
+/*   Updated: 2015/04/29 19:55:00 by gjensen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,15 +27,6 @@
 # define FREE_ARR(x) { if (x) ft_arrfree(&x); }
 
 typedef struct stat		t_stat;
-typedef struct dirent	t_dirent;
-
-struct	s_lst
-{
-	char			*path;
-	struct dirent	*rd;
-	struct s_list	*next;
-}		t_lst;
-
 extern char ***g_env;
 
 /*
